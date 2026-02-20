@@ -6,6 +6,8 @@ to push into github reposito
 
 # Raithu
 
+# vedio 1
+
 -create a vite+react application
 
 - Remove unnecessary code and crate a Hellow World app
@@ -18,6 +20,12 @@ to push into github reposito
 - Create BrowserRouter > Routes > Route=/ Body> RouteChildren
 - Create an <Outlet /> in you Body component
 - Add Footer (https://daisyui.com/components/footer/)
+
+# vedio 2
+
+- Install axios
+- CORS -install cors in backend => add middleware to with configuration: origin, credentials: true
+- Whenever you are making API call pass axios =>{withCredentials: true} (if not token will not sent back for each route)
 
 Body
 NavBar
