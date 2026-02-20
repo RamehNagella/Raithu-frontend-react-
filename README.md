@@ -9,5 +9,6 @@ to push into github reposito
 -create a vite+react application
 
 - Remove unnecessary code and crate a Hellow World app
+- Install Tailwind css
 - Install Daisy UI
 - App NavBar component to App.jsx
