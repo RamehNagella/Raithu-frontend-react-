@@ -6,17 +6,6 @@ const NavBar = () => {
       className="navbar h-24 bg-cover bg-center relative px-4 rounded-xl overflow-hidden top-0 z-50 sticky shadow-sm"
       style={{ backgroundImage: `url(${navbarBg})` }}
     >
-      {/* <div className="relative z-10 flex w-full items-center text-orange-700">
-        <h1
-          className="absolute left-[15%] top-1/2 -translate-y-1/2 text-4xl font-bold"
-          style={{
-            textShadow: "2px 2px 6px yellow",
-          }}
-        >
-          Raithu
-        </h1>
-        <p className="text-xs mx-20 mt-12 tracking-wide">Empowering Farmers</p>
-      </div> */}
       <div className="relative z-10 w-full text-orange-600">
         <div className="absolute left-[15%] top-1/2 -translate-y-1/2 flex flex-col">
           <h1
