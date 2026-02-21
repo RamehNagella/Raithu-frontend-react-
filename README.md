@@ -26,6 +26,17 @@ to push into github reposito
 - Install axios
 - CORS -install cors in backend => add middleware to with configuration: origin, credentials: true
 - Whenever you are making API call pass axios =>{withCredentials: true} (if not token will not sent back for each route)
+- Install redux tool kit (https://redux-toolkit.js.org/introduction/getting-started)
+
+# npm install @reduxjs/toolkit
+
+# npm install react-redux
+
+- configureStore => Provider(in App.jsx) => createSlice => add reducer to store
+- Add redux devtools in chrome
+- Login and see if your data is coming properly as soon as user logged In
+- NavbBar should update as soon as user loggedIn
+- Refactor our code to add constants file + create a components folder
 
 Body
 NavBar
