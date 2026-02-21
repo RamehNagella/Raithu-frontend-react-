@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   return (
     <div
       className="navbar h-24 bg-cover bg-center relative px-4 rounded-xl top-0 z-50 sticky shadow-sm"
@@ -72,10 +72,22 @@ const NavBar = () => {
             {user?.emailId ? (
               <>
                 <li>
-                  <a className="justify-between">
+                  <Link to="/profile" className="justify-between">
                     Profile
-                    <span className="badge">New</span>
-                  </a>
+                    <span className="badge">View</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile/edit" className="justify-between">
+                    Profile
+                    <span className="badge">Edit</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile/password" className="justify-between">
+                    {" "}
+                    New Password
+                  </Link>
                 </li>
                 <li>
                   <a>Settings</a>
