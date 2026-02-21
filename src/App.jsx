@@ -7,6 +7,7 @@ import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 import EditProfile from "./components/EditProfile";
 import UpdatePassword from "./components/UpdatePassword";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/profile/view" element={<Profile />} />
               <Route path="/profile/edit" element={<EditProfile />} />
               <Route path="/profile/password" element={<UpdatePassword />} />
+              <Route path="/logout" element={<NavBar />} />
             </Route>
           </Routes>
         </BrowserRouter>
