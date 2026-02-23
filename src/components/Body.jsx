@@ -10,7 +10,7 @@ import { addUser } from "../utils/userSlice";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((store) => store.user);
 
   const fetchUser = async () => {
     try {
@@ -19,7 +19,8 @@ const Body = () => {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
-      dispatch(addUser(res.data.user));
+
+      dispatch(addUser(res.data?.user));
     } catch (err) {
       const status = err?.response?.status;
 
@@ -38,7 +39,6 @@ const Body = () => {
     <div>
       <NavBar />
       <Outlet />
-      <Footer />
     </div>
   );
 };

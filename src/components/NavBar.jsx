@@ -106,6 +106,12 @@ const NavBar = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/grain" className="justify-between">
+                    Grains
+                    <span className="badge">View</span>
+                  </Link>
+                </li>
+                <li>
                   <a>Settings</a>
                 </li>
                 <li>

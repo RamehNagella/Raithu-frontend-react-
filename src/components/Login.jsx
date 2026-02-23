@@ -28,7 +28,7 @@ const Login = () => {
         },
       );
       // console.log(res.data.user);
-      dispatch(addUser(res.data.user));
+      dispatch(addUser(res.data?.user));
       return navigate("/grain");
     } catch (err) {
       console.error(err?.response?.data?.Error);
