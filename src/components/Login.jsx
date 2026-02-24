@@ -1,9 +1,10 @@
 import { use, useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import exploreGrainsImage from "../assets/grain_default_image2.jpg";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("sureshsusri@gmail.com");
@@ -12,6 +13,9 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const user = useSelector((store) => store.user);
+  const isLoggedIn = !!user?.emailId;
 
   const handleLogin = async () => {
     // console.log(emailId, password);
@@ -80,6 +84,25 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {!isLoggedIn && (
+        <div className="fixed top-96 right-8 z-50">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-4 shadow-xl text-center">
+              <img
+                src={exploreGrainsImage}
+                alt="Explore Grains"
+                className="rounded-lg mb-4 h-20 object-cover mx-auto "
+              />
+              <Link
+                to="/grain"
+                className="block bg-green-600 text-white text-sm px-3 py-2 rounded-full"
+              >
+                View Grains
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
   // return (

@@ -1,5 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { data } from "autoprefixer";
+import { BASE_URL } from "./constants";
+
+// create Async Thunk
+
+export const fetchFeed = createAsyncThunk(
+  "feed/fetchFeed",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(BASE_URL + "/grain/grains", {
+        withCredentials: true,
+      });
+      return res.data?.data;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message ||
+          "Somthing went wrong while fetching grains, Try after some time",
+      );
+    }
+  },
+);
 
 const feedSlice = createSlice({
   name: "feed",
@@ -10,7 +30,7 @@ const feedSlice = createSlice({
   },
   reducers: {
     setLoading: (state, action) => {
-      state.isLoding = action.payload;
+      state.isLoading = action.payload;
     },
     addFeed: (state, action) => {
       state.items = action.payload;

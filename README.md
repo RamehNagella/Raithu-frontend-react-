@@ -45,6 +45,17 @@ to push into github reposito
 - Logout feature
 - store grain data in redux store
 - Display Grain in web page
+- Add modification to the grainCard
+- Display grains user is logged in or not
+- Display action icons (view Grains in login page, login action in grains page if user was not loggedIn)
+- Add Sell your grain action icon at the right side of the screan
+- Add actions icons using lucide-react (https://lucide.dev/guide/packages/lucide-react#with-lucide-lab-or-custom-icons)
+  for card, order, mygrains, organic, nonorganic,..etc
+- add each page for each action
+- add CIRCLEACTION.JSX reusable code
+- add routes in the app.jsx file
+- some of the actions display after loggedIn
+- some of the actions dislay without loggedIn
 
 Body
 NavBar

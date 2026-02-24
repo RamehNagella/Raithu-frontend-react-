@@ -5,8 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Graincard from "./GrainCard";
 import Footer from "./Footer";
+import bgImage from "../assets/bg_for_grains.jpg";
+import rightActionImage from "../assets/icon.jpg";
+import { Link } from "react-router-dom";
+import RightSideAction from "./RightSideAction";
+import LeftSideAction from "./LeftSideAction";
+import RightSellCard from "./RightSellCard";
 
 const Feed = () => {
+  // user
+  const user = useSelector((store) => store.user);
+  console.log("User in feed:", user);
+  const isLoggedIn = !!user?.user?.emailId;
+  console.log("Is user logged in?", isLoggedIn);
+
   const grains = useSelector((store) => store.feed);
   const dispatch = useDispatch();
   console.log("Grains in feed:", grains);
@@ -19,7 +31,7 @@ const Feed = () => {
       });
       dispatch(addFeed(res.data?.data));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch(
         setError(
           err.response?.data?.message ||
@@ -62,18 +74,37 @@ const Feed = () => {
     //     ))}
     //   </div>
     // </div>
-    <div className="flex flex-col min-h-screen">
-      {/* Main Content */}
-      <main className="flex-grow bg-gray-600 px-3 py-4 pb-24">
+
+    <div
+      className="flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      {/* Left actions go here */}
+      <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
+        {isLoggedIn && LeftSideAction}
+      </aside>
+      {/* Cnter - Grain Cards */}
+      <main className="flex-grow px-3 py-4 pb-24 overflow-y-auto">
         <div className="max-w-md mx-auto space-y-4">
           {grains?.items?.map((grain) => (
             <Graincard key={grain._id} grain={grain} />
           ))}
         </div>
       </main>
-
+      {/* Right side Action */}
+      <aside className="w-20 lg:w-56 flex flex-col items-center pt-6 gap-6">
+        {/* {!isLoggedIn && (
+          <RightSideAction message="To Explore grains" buttonText="Login" />
+        )}
+        {isLoggedIn && <RightSellCard />} */}
+        {isLoggedIn ? (
+          <RightSellCard className="w-5" />
+        ) : (
+          <RightSideAction message="To Explore grains" buttonText="Login" />
+        )}
+      </aside>
       {/* Footer */}
-      <Footer />
+      <footer className="footer sm:footer-horizontal bg-base-300 text-neutral-content items-center p-4 w-full flex flex-wrap justify-between gap-2" />{" "}
     </div>
   );
 };

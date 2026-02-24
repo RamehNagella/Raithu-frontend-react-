@@ -10,7 +10,7 @@ import axios from "axios";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-
+  console.log("Navbar: ", user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -64,8 +64,8 @@ const NavBar = () => {
               : "0 0 3px red, 0 0 3px white",
           }}
         >
-          {user?.firstName
-            ? `Welcome, ${user.firstName}!`
+          {user?.user?.firstName
+            ? `Welcome, ${user?.user?.firstName}!`
             : "Welcome user, Login here"}
         </div>
         <div className="dropdown dropdown-end mx-1">
@@ -75,17 +75,14 @@ const NavBar = () => {
             className="btn btn-ghost btn-circle avatar w-12 h-12"
           >
             <div className="w-14 rounded-full">
-              <img
-                alt="user photo"
-                src={user ? user.photoUrl || defaultIcon : defaultIcon}
-              />
+              <img alt="user photo" src={user?.user?.photoUrl || defaultIcon} />
             </div>
           </div>
           <ul
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1000] mt-3 w-52 p-2 shadow"
           >
-            {user?.emailId ? (
+            {user?.user?.emailId ? (
               <>
                 <li>
                   <Link to="/profile" className="justify-between">
@@ -125,6 +122,9 @@ const NavBar = () => {
               </>
             ) : (
               <li>
+                <Link to="/grain" className="text-primary font-semibold">
+                  View Grains
+                </Link>
                 <Link to="/login" className="text-primary font-semibold">
                   Login
                 </Link>
