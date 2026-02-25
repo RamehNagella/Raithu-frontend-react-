@@ -1,5 +1,6 @@
 import React from "react";
 import dafaultImage from "../assets/grain_default_image.jpg";
+import { Link } from "react-router-dom";
 /*
    {
         _id: '69936dfef7dbd5a1af1d725b',
@@ -69,12 +70,28 @@ const GrainCard = ({ grain }) => {
         </div>
         <p>{grain.description || "This is a high- quality healthy grain"}</p>
         <div className="card-actions justify-end">
-          <button className="badge badge-outline bg-blue-500 w-24 h-10 text-white">
+          {/* <Link
+            to={`/grain/${grain._id}`}
+            className="badge badge-outline bg-blue-500 w-24 h-10 text-white"
+          >
             View Details
-          </button>
-          <button className="badge badge-outline bg-green-500 w-24 h-10">
-            Buy Now
-          </button>
+          </Link> */}
+          <Link
+            to={`/grain/${grain._id}`}
+            className="badge badge-outline bg-blue-500 w-26 h-10 text-white"
+          >
+            View Details
+          </Link>
+
+          {/* <button className="badge badge-outline bg-blue-500 w-24 h-10 text-white">
+            View Details
+          </button> */}
+          <Link
+            to={`/grain/order/${grain._id}`}
+            className="badge badge-outline bg-green-500 w-24 h-10"
+          >
+            Order Now
+          </Link>
         </div>
         <div className="badge badge-primary">
           Harvested In{" "}

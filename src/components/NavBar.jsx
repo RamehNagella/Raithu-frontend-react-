@@ -10,7 +10,7 @@ import axios from "axios";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
-  console.log("Navbar: ", user.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -122,9 +122,6 @@ const NavBar = () => {
               </>
             ) : (
               <li>
-                <Link to="/grain" className="text-primary font-semibold">
-                  View Grains
-                </Link>
                 <Link to="/login" className="text-primary font-semibold">
                   Login
                 </Link>

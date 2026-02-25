@@ -56,6 +56,12 @@ to push into github reposito
 - add routes in the app.jsx file
 - some of the actions display after loggedIn
 - some of the actions dislay without loggedIn
+<!-- //// -->
+- add hover action to the leftside actions and rightside actions
+- display rightSell action to required pages(WOrk on Body.jsx using .some() method)
+- Add pages for all icons and button actions
+- Work on OrderNow action button (take two backend apis for this action one router.get("/grain/:grainId" and router.post("/order/place-order")))
+- Display OrderSummary on the page
 
 Body
 NavBar

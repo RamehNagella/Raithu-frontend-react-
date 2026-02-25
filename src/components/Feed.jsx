@@ -15,13 +15,11 @@ import RightSellCard from "./RightSellCard";
 const Feed = () => {
   // user
   const user = useSelector((store) => store.user);
-  console.log("User in feed:", user);
   const isLoggedIn = !!user?.user?.emailId;
-  console.log("Is user logged in?", isLoggedIn);
 
   const grains = useSelector((store) => store.feed);
   const dispatch = useDispatch();
-  console.log("Grains in feed:", grains);
+
   const getGrains = async () => {
     //prevent refetching if data is already present
     if (grains?.items?.length > 0) return;
@@ -80,9 +78,9 @@ const Feed = () => {
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {/* Left actions go here */}
-      <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
-        {isLoggedIn && LeftSideAction}
-      </aside>
+      {/* <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
+        {isLoggedIn && <LeftSideAction />}
+      </aside> */}
       {/* Cnter - Grain Cards */}
       <main className="flex-grow px-3 py-4 pb-24 overflow-y-auto">
         <div className="max-w-md mx-auto space-y-4">
@@ -97,10 +95,22 @@ const Feed = () => {
           <RightSideAction message="To Explore grains" buttonText="Login" />
         )}
         {isLoggedIn && <RightSellCard />} */}
-        {isLoggedIn ? (
-          <RightSellCard className="w-5" />
-        ) : (
-          <RightSideAction message="To Explore grains" buttonText="Login" />
+        {!isLoggedIn && (
+          <div className="fixed block right-4 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
+            <div
+              className="
+                transform transition-all duration-700 ease-in-out
+                origin-center-right
+                scale-50 
+                hover:scale-100 
+                active:scale-100  
+                md:scale-75 
+                md:hover:scale-100
+              "
+            >
+              <RightSideAction message="To Explore grains" buttonText="Login" />
+            </div>
+          </div>
         )}
       </aside>
       {/* Footer */}

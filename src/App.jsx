@@ -17,6 +17,8 @@ import NonOrganicPage from "./pages/NonOrganicPage";
 import AddGrains from "./components/AddGrains";
 import MyGrainsPage from "./pages/MyGrainsPage";
 import RicePage from "./pages/RicePage";
+import ViewDetails from "./actions/ViewDetails";
+import Order from "./actions/Order";
 
 function App() {
   return (
@@ -39,6 +41,9 @@ function App() {
               <Route path="logout" element={<NavBar />} />
               {/* RIGHT SIDE ACTION ROUTES */}
               <Route path="add-grain" element={<AddGrains />} />
+              {/* Button Action Routes */}
+              <Route path="/grain/:grainId" element={<ViewDetails />} />
+              <Route path="/grain/order/:grainId" element={<Order />} />
               {/* LEFT SIDE ACTION ROUTES */}
               <Route path="cart" element={<CartPage />} />
               <Route path="orders" element={<OrdersPage />} />
