@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import exploreGrainsImage from "../assets/grain_default_image2.jpg";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("sureshsusri@gmail.com");
   const [password, setPassword] = useState("Suresh@7");
+  const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((store) => store.user);
+  const isLoggedIn = !!user?.emailId;
 
   const handleLogin = async () => {
-    console.log(emailId, password);
+    // console.log(emailId, password);
+
     try {
       const res = await axios.post(
-        "http://localhost:7777/login",
+        BASE_URL + "/login",
         {
           emailId,
           password,
@@ -18,8 +31,14 @@ const Login = () => {
           withCredentials: true,
         },
       );
+      // console.log(res.data.user);
+      dispatch(addUser(res.data?.user));
+      return navigate("/grain");
     } catch (err) {
-      console.error(err);
+      console.error(err?.response?.data?.Error);
+      setError(
+        err?.response?.data?.Error || "Something went wrong. Please try again.",
+      );
     }
   };
 
@@ -55,7 +74,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
-
+            <p className="text-red-500">{error}</p>
             <button
               className="btn btn-primary btn-sm px-6 mt-5 mx-auto block"
               onClick={handleLogin}
@@ -65,6 +84,25 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {!isLoggedIn && (
+        <div className="fixed top-96 right-8 z-50">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-4 shadow-xl text-center">
+              <img
+                src={exploreGrainsImage}
+                alt="Explore Grains"
+                className="rounded-lg mb-4 h-20 object-cover mx-auto "
+              />
+              <Link
+                to="/grain"
+                className="block bg-green-600 text-white text-sm px-3 py-2 rounded-full"
+              >
+                View Grains
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
   // return (
