@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Graincard from "./GrainCard";
 import Footer from "./Footer";
-import bgImage from "../assets/bg_for_grains.jpg";
+import bgImage from "../assets/screan_bg1.jpg";
 import rightActionImage from "../assets/icon.jpg";
 import { Link } from "react-router-dom";
 import RightSideAction from "./RightSideAction";
-import LeftSideAction from "./LeftSideAction";
+// import LeftSideAction from "./LeftSideAction";
 import RightSellCard from "./RightSellCard";
 
 const Feed = () => {
@@ -113,8 +113,6 @@ const Feed = () => {
           </div>
         )}
       </aside>
-      {/* Footer */}
-      <footer className="footer sm:footer-horizontal bg-base-300 text-neutral-content items-center p-4 w-full flex flex-wrap justify-between gap-2" />{" "}
     </div>
   );
 };

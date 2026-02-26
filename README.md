@@ -62,6 +62,11 @@ to push into github reposito
 - Add pages for all icons and button actions
 - Work on OrderNow action button (take two backend apis for this action one router.get("/grain/:grainId" and router.post("/order/place-order")))
 - Display OrderSummary on the page
+<!--  -->
+- Work complete Order api (/place-order, .get('/orders/),/my-orders,/track, /cancel/order, /cancel/item, )
+- Orders Doesn't stored on Redux store
+- complete ui work based on each api on their respective pages
+- Set NavBar and Footer, SideBar and MainContent at their positions
 
 Body
 NavBar

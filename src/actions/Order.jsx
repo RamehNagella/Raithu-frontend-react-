@@ -19,7 +19,7 @@ const Order = () => {
         const res = await axios.get(`http://localhost:7777/grain/${grainId}`, {
           withCredentials: true,
         });
-        console.log("fetchGrain", res?.data?.data);
+        console.log(res);
         setGrain(res?.data?.data);
       } catch (err) {
         setError("Failed to load grain details");
@@ -29,7 +29,6 @@ const Order = () => {
     fetchGrain();
   }, [grainId]);
 
-  console.log("grain::", grain);
   // ✅ Handle order placement
   const handlePlaceOrder = async () => {
     try {
@@ -40,8 +39,13 @@ const Order = () => {
       await axios.post(
         "http://localhost:7777/orders/place-order",
         {
-          grainId,
-          quantity,
+          items: [
+            {
+              productId: grainId,
+              quantity: quantity,
+              unit: "Kg",
+            },
+          ],
         },
         { withCredentials: true },
       );
@@ -53,7 +57,7 @@ const Order = () => {
         navigate("/orders");
       }, 2000);
     } catch (err) {
-      setError(err?.response?.data?.Error || "Failed to place order");
+      setError(err?.response?.data?.message || "Failed to place order");
     } finally {
       setIsLoading(false);
     }
@@ -70,17 +74,17 @@ const Order = () => {
   const totalPrice = grain.price * quantity;
 
   return (
-    <div className="h-dvh pt-12 pb-12 bg-gray-300 flex items-center justify-center overflow-hidden">
-      <div className="w-full max-w-3xl h-[90%] bg-white shadow-xl rounded-2xl p-6 overflow-auto">
+    <div className="flex justify-center items-end pb-[5%]  min-h-screen">
+      <div className="w-full max-w-2xl h-dvh bg-gray-300 shadow-xl rounded-2xl p-4 overflow-auto">
         <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">
           Order Summary
         </h1>
         {/* Grain Info */}
-        <div className="flex flex-col md:flex-row gap-8 items-center">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           <img
-            src={grain?.photos[0]}
+            src={grain?.photos?.[0]}
             alt={grain.name}
-            className="w-64 h-64 object-cover rounded-xl border"
+            className="w-48 h-52 object-cover rounded-xl border"
           />
 
           <div className="flex flex-col justify-between flex-1">
@@ -115,7 +119,7 @@ const Order = () => {
               /> */}
             </div>
             <div className="flex items-center">
-              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden shadow-sm bg-white">
+              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden shadow-sm bg-gray-300">
                 {/* Decrease Button */}
                 <button
                   onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
@@ -149,6 +153,10 @@ const Order = () => {
             {/* Total Price */}
             <div className="mt-6 text-xl font-bold text-gray-800">
               Total: <span className="text-green-600">₹ {totalPrice}</span>
+            </div>
+            <div className="text-lg font-bold text-red-600 ">
+              {" "}
+              Cash On Delivery Only
             </div>
           </div>
         </div>

@@ -85,7 +85,7 @@ const Login = () => {
         </div>
       </div>
       {!isLoggedIn && (
-        <div className="fixed top-96 right-8 z-50">
+        <div className="fixed top-56 right-8 z-50">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-4 shadow-xl text-center">
               <img

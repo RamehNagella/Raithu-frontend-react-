@@ -26,7 +26,6 @@ const Body = () => {
   console.log(location.pathname);
   const user = useSelector((store) => store.user);
   const isLoggedIn = !!user?.user?.emailId;
-  console.log(">>>", isLoggedIn);
 
   const hideSelllCardRoutes = ["/cart", "/orders", "/track", "/grain/order"];
   // const shouldHideSellCard = hideSelllCardRoutes.includes(location.pathname);
@@ -34,7 +33,6 @@ const Body = () => {
     (route) =>
       location.pathname === route || location.pathname.startsWith(route + "/"),
   );
-  console.log(">>>", shouldHideSellCard);
 
   const fetchUser = async () => {
     try {
@@ -63,11 +61,13 @@ const Body = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    // <div className="min-h-screen flex flex-col">
+
+    <div className="app-container">
       <NavBar />
 
       {/* <div className="fixed left-4 top-20 bottom-20 z-50 w-20 flex flex-col gap-4 items-center bg-gray-100/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg "> */}
-      <div className="fixed left-2 top-32 bottom-20 z-50 w-20 lg:w-24 flex flex-col gap-4 items-center bg-gray-300/10 backdrop-blur-md rounded-3xl py-6 px-2 shadow-xl border border-orange-900">
+      <div className="fixed left-1 top-28 bottom-20 z-50 w-20 lg:w-24 flex flex-col gap-3 items-center bg-gray-300/10 backdrop-blur-md rounded-3xl py-6 px-2 shadow-xl border border-orange-900">
         <CircleAction
           icon={<Wheat size={20} />}
           label="Grains"
@@ -123,9 +123,9 @@ const Body = () => {
         )}
       </div>
       {/* PAGE CONTENT */}
-      <div className="ml-24">
+      <main className="app-content  px-4 sm:px-6 lg:ml-28">
         <Outlet />
-      </div>
+      </main>
       {isLoggedIn && !shouldHideSellCard && (
         <div className="fixed right-2 md:right-6 top-1/5 -translate-y-1/2 z-[99999]">
           <div

@@ -1,3 +1,92 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Prevent layout issues */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Global Fixed Background */
+.app-background {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+
+  background-image: url("./assets/screan_bg1.jpg");
+  background-size: cover;
+  background-position: center center; /* Mobile view */
+  background-repeat: no-repeat;
+
+  z-index: -1;
+}
+
+/* Desktop View - Crop from Top */
+@media (min-width: 1024px) {
+  .app-background {
+    background-position: bottom center;
+  }
+}
+
+/* App container (mobile app feel) */
+/* .app-container {
+  position: relative;
+  max-width: 430px; // Mobile app width 
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+} */
+.app-container {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fixed Navbar */
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  width: 100%;
+  /* max-width: 430px; */
+  z-index: 1000;
+}
+
+/* Fixed Footer */
+.footer-fixed {
+  position: fixed;
+  bottom: 0;
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  width: 100%;
+  /* max-width: 430px; */
+  z-index: 1000;
+}
+
+/* Content area */
+.app-content {
+  flex: 1;
+  margin-top: 100px;
+  margin-left: 40px;
+  padding-top: 70px; /* Height of navbar */
+  padding-bottom: 70px; /* Height of footer */
+  overflow-y: auto;
+}
+.navbar-fixed,
+.footer-fixed {
+  pointer-events: auto;
+  isolation: isolate;
+}

@@ -23,6 +23,7 @@ import Order from "./actions/Order";
 function App() {
   return (
     <>
+      <div className="app-background" />
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>
