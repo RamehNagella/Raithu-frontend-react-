@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   CookingPot,
-  Layers,
   Leaf,
   Package,
   ShoppingCart,
   Truck,
   Wheat,
+  Sprout,
+  Star,
 } from "lucide-react";
 import NavBar from "./NavBar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -27,7 +28,7 @@ const Body = () => {
   const user = useSelector((store) => store.user);
   const isLoggedIn = !!user?.user?.emailId;
 
-  const hideSelllCardRoutes = ["/cart", "/orders", "/track", "/grain/order"];
+  const hideSelllCardRoutes = ["/cart", "/orders", "/grain/order"];
   // const shouldHideSellCard = hideSelllCardRoutes.includes(location.pathname);
   const shouldHideSellCard = hideSelllCardRoutes.some(
     (route) =>
@@ -67,7 +68,7 @@ const Body = () => {
       <NavBar />
 
       {/* <div className="fixed left-4 top-20 bottom-20 z-50 w-20 flex flex-col gap-4 items-center bg-gray-100/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg "> */}
-      <div className="fixed left-1 top-28 bottom-20 z-50 w-20 lg:w-24 flex flex-col gap-3 items-center bg-gray-300/10 backdrop-blur-md rounded-3xl py-6 px-2 shadow-xl border border-orange-900">
+      <div className="fixed left-0 top-28 bottom-20 z-50 w-18 lg:w-24 flex flex-col gap-3 items-center bg-gray-100/10 backdrop-blur-sm rounded-3xl py-6 px-2 shadow-xl border-l-2 border-orange-400">
         <CircleAction
           icon={<Wheat size={20} />}
           label="Grains"
@@ -78,26 +79,33 @@ const Body = () => {
           icon={<Leaf size={20} />}
           label="Organic"
           to="/organic"
-          bgColor="bg-green-500"
-        />
-        <CircleAction
-          icon={<Layers size={20} />}
-          label="Non-Organic"
-          to="/non-organic"
-          bgColor="bg-orange-600"
+          bgColor="bg-green-600"
         />
         <CircleAction
           icon={<CookingPot size={20} />}
           label="Rice"
           to="/rice"
-          bgColor="bg-green-600"
+          bgColor="bg-green-500"
         />
+        <CircleAction
+          icon={<Sprout size={20} />}
+          label="Millets"
+          to="/millets"
+          bgColor="bg-orange-700"
+        />
+
         {/* LEFT FIXED SIDEBAR */}
         {isLoggedIn && (
           <>
             <CircleAction
+              icon={<Wheat size={20} />}
+              label="Your Grains"
+              to="/my-grains"
+              bgColor="bg-blue-900"
+            />
+            <CircleAction
               icon={<ShoppingCart size={20} />}
-              label="Cart"
+              label="My Cart"
               to="/cart"
               bgColor="bg-blue-900"
             />
@@ -108,12 +116,6 @@ const Body = () => {
               bgColor="bg-blue-900"
             />
             <CircleAction
-              icon={<Wheat size={20} />}
-              label="Your Grains"
-              to="/my-grains"
-              bgColor="bg-blue-900"
-            />
-            <CircleAction
               icon={<Truck size={20} />}
               label="Track"
               to="/track"
@@ -121,16 +123,26 @@ const Body = () => {
             />
           </>
         )}
+        {/* Always fixed at bottom */}
+        <div className="absolute bottom-2">
+          <CircleAction
+            icon={<Star size={10} />}
+            label="feedback"
+            to="/feedback"
+            bgColor="bg-pink-600"
+            size="w-12 h-9"
+          />
+        </div>
       </div>
       {/* PAGE CONTENT */}
       <main className="app-content  px-4 sm:px-6 lg:ml-28">
         <Outlet />
       </main>
       {isLoggedIn && !shouldHideSellCard && (
-        <div className="fixed right-2 md:right-6 top-1/5 -translate-y-1/2 z-[99999]">
+        <div className="fixed -right-2 md:right-6 top-1/3 -translate-y-1/2 z-[50]">
           <div
             className="
-                transform transition-all duration-700 ease-in-out
+                transform transition-all duration-500 ease-in-out
                 origin-center-right
                 scale-50 
                 hover:scale-100 

@@ -73,22 +73,19 @@ const Feed = () => {
     //   </div>
     // </div>
 
-    <div
-      className="flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative"
-      style={{ backgroundImage: `url(${bgImage})` }}
-    >
+    <div>
       {/* Left actions go here */}
       {/* <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
         {isLoggedIn && <LeftSideAction />}
       </aside> */}
       {/* Cnter - Grain Cards */}
-      <main className="flex-grow px-3 py-4 pb-24 overflow-y-auto">
+      <section className="flex-grow px-3 py-4 pb-24 ">
         <div className="max-w-md mx-auto space-y-4">
           {grains?.items?.map((grain) => (
             <Graincard key={grain._id} grain={grain} />
           ))}
         </div>
-      </main>
+      </section>
       {/* Right side Action */}
       <aside className="w-20 lg:w-56 flex flex-col items-center pt-6 gap-6">
         {/* {!isLoggedIn && (

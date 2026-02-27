@@ -14,7 +14,9 @@ body,
 body {
   overflow-x: hidden;
 }
-
+* {
+  box-sizing: border-box;
+}
 /* Global Fixed Background */
 .app-background {
   position: fixed;
@@ -80,10 +82,11 @@ body {
 .app-content {
   flex: 1;
   margin-top: 100px;
-  margin-left: 40px;
+  margin-left: 60px;
   padding-top: 70px; /* Height of navbar */
   padding-bottom: 70px; /* Height of footer */
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  overflow-x: hidden;
 }
 .navbar-fixed,
 .footer-fixed {

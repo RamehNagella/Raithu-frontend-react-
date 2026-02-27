@@ -67,13 +67,25 @@ to push into github reposito
 - Orders Doesn't stored on Redux store
 - complete ui work based on each api on their respective pages
 - Set NavBar and Footer, SideBar and MainContent at their positions
+<!--  -->
+- Add FeedBack page, Millets pages
+- Add Globar settings for page view for navbar footer in index.css
+- Left side Border added for RightSellCard
+- In the entire Body of the page we should have only one <main> tag if we want we can have multiple sections <section> to devied the body (added in Feed.jsx)
+- CircleAction can take multiple parameters and allow inline classing by taking the className as parameter for its CircleAction icons
+- Modify Icons size
+- Change OrdersPage and CartPage to fit the screan
+- Update amount to be pay in orders and cart page when order or item was cancel
+- Add Pagination to Track Page
+UPto this app is perfect Feb27,20.05PM
+<!--  -->
 
-Body
-NavBar
-Route=/ => Feed (grains)
-Route=/login => Login
-Route=/singup => Signup
-Route=/profile => Profile
+- Body
+  NavBar
+  Route=/ => Feed (grains)
+  Route=/login => Login
+  Route=/singup => Signup
+  Route=/profile => Profile
 
 # to provie any action (component)or any card on webpage
 

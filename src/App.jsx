@@ -19,6 +19,8 @@ import MyGrainsPage from "./pages/MyGrainsPage";
 import RicePage from "./pages/RicePage";
 import ViewDetails from "./actions/ViewDetails";
 import Order from "./actions/Order";
+import MilletsPage from "./pages/MilletsPage";
+import FeedbackPage from "./pages/FeedbackPage";
 
 function App() {
   return (
@@ -53,6 +55,8 @@ function App() {
               <Route path="organic" element={<OrganicPage />} />
               <Route path="non-organic" element={<NonOrganicPage />} />
               <Route path="rice" element={<RicePage />} />
+              <Route path="millets" element={<MilletsPage />} />
+              <Route path="feedback" element={<FeedbackPage />} />
               <Route path="single-grain/:id" element={<SingleGrainCard />} />
             </Route>
           </Routes>

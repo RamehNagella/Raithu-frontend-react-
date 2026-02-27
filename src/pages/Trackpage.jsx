@@ -7,20 +7,28 @@ const TrackPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const limit = 2; // number of orders per page
+
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [page]);
 
   const fetchOrders = async () => {
     try {
       setLoading(true);
+      setError("");
+
       const res = await axios.get(
-        `${BASE_URL}/orders/my-orders?page=1&limit=10`,
+        `${BASE_URL}/orders/my-orders?page=${page}&limit=${limit}`,
         { withCredentials: true },
       );
 
       if (res?.data?.success) {
-        setOrders(res?.data?.data);
+        setOrders(res?.data?.data || []);
+        setTotalPages(res?.data?.totalPages || 1);
       }
     } catch (err) {
       setError(
@@ -28,6 +36,16 @@ const TrackPage = () => {
       );
     } finally {
       setLoading(false);
+    }
+  };
+  const nextPage = () => {
+    if (page < totalPages) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  const prevPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
     }
   };
   const cancelOrder = async (orderId) => {
@@ -62,35 +80,31 @@ const TrackPage = () => {
     return orderDate.toLocaleDateString();
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p className="text-lg font-semibold">Loading tracking details...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p className="text-red-500">{error}</p>
-      </div>
-    );
-  }
-
-  if (orders.length === 0) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p className="text-gray-600">You have no orders to track.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-500 p-8 rounded-2xl pb-28">
+    <div className="bg-gray-500 p-4 rounded-2xl">
       <h2 className="text-2xl font-bold mb-6 text-center">Track Your Orders</h2>
 
-      <div className="max-w-4xl mx-auto space-y-6">
+      {/* Loading */}
+      {loading && (
+        <div className="text-center text-lg font-semibold">
+          Loading tracking details...
+        </div>
+      )}
+      {/* Error */}
+      {error && (
+        <div className="text-center text-red-600 font-semibold bg-red-100 py-2 rounded-lg">
+          {error}
+        </div>
+      )}
+
+      {/* No Orders */}
+      {orders.length === 0 && !loading && !error && (
+        <div className="text-center text-gray-600">
+          You don’t have any orders yet.
+        </div>
+      )}
+
+      <div className="max-w-2xl mx-auto space-y-4">
         {orders.map((order) => {
           const activeItems = order.items.filter(
             (i) => i.status !== "CANCELLED",
@@ -170,6 +184,38 @@ const TrackPage = () => {
           );
         })}
       </div>
+      {/* Pagination Controls */}
+      {!loading && totalPages > 1 && (
+        <div className="flex justify-center items-center gap-4 mt-8">
+          <button
+            onClick={prevPage}
+            disabled={page === 1}
+            className={`px-4 py-2 rounded-lg ${
+              page === 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-green-600 text-white hover:bg-green-700"
+            }`}
+          >
+            Previous
+          </button>
+
+          <span className="font-semibold">
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            onClick={nextPage}
+            disabled={page === totalPages}
+            className={`px-4 py-2 rounded-lg ${
+              page === totalPages
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-green-600 text-white hover:bg-green-700"
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
