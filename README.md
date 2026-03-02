@@ -79,6 +79,12 @@ to push into github reposito
 - Add Pagination to Track Page
 UPto this app is perfect Feb27,20.05PM
 <!--  -->
+- Add your Grains page
+- Add update page
+- Chenge display card to display correct unit name and price/unit
+- Adjust useEffect() to work both for AddGrain page and UpdateGrainPage
+
+<!--  -->
 
 - Body
   NavBar

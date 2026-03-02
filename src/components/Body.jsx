@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import CircleAction from "./CircleAction";
 import RightSellCard from "./RightSellCard";
+import RightSideAction from "./RightSideAction";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -25,15 +26,24 @@ const Body = () => {
   const location = useLocation();
   const [expand, setExpand] = useState(false);
   console.log(location.pathname);
+
   const user = useSelector((store) => store.user);
   const isLoggedIn = !!user?.user?.emailId;
-
-  const hideSelllCardRoutes = ["/cart", "/orders", "/grain/order"];
+  const isLoginPath = location?.pathname === "/login";
+  // console.log(isLoginPath);
+  const hideSelllCardRoutes = [
+    "/cart",
+    "/orders",
+    "/grain/order",
+    "/add-grain",
+  ];
   // const shouldHideSellCard = hideSelllCardRoutes.includes(location.pathname);
   const shouldHideSellCard = hideSelllCardRoutes.some(
     (route) =>
       location.pathname === route || location.pathname.startsWith(route + "/"),
   );
+
+  const hideRightLoginCardRoutes = "";
 
   const fetchUser = async () => {
     try {
@@ -138,7 +148,7 @@ const Body = () => {
       <main className="app-content  px-4 sm:px-6 lg:ml-28">
         <Outlet />
       </main>
-      {isLoggedIn && !shouldHideSellCard && (
+      {!shouldHideSellCard && (
         <div className="fixed -right-2 md:right-6 top-1/3 -translate-y-1/2 z-[50]">
           <div
             className="
@@ -155,6 +165,30 @@ const Body = () => {
           </div>
         </div>
       )}
+      <>
+        <div>
+          {!isLoginPath && !isLoggedIn && (
+            <div className="fixed block right-4 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
+              <div
+                className="
+              transform transition-all duration-700 ease-in-out
+              origin-center-right
+              scale-50 
+              hover:scale-100 
+              active:scale-100  
+              md:scale-75 
+              md:hover:scale-100
+              "
+              >
+                <RightSideAction
+                  message="To Explore grains"
+                  buttonText="Login"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </>
       <Footer />
     </div>
   );

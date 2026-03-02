@@ -44,11 +44,7 @@ const MainLayout = () => {
         )}
 
         <CircleAction icon={<Leaf size={20} />} label="Organic" to="/organic" />
-        <CircleAction
-          icon={<Layers size={20} />}
-          label="Non-Organic"
-          to="/non-organic"
-        />
+
         <CircleAction icon={<RiceBowl size={20} />} label="Rice" to="/rice" />
       </div>
       {/* PAGE CONTENT */}

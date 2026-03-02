@@ -112,7 +112,7 @@ const TrackPage = () => {
           return (
             <div
               key={order._id}
-              className="bg-white shadow-md rounded-xl p-6 border"
+              className="bg-white shadow-md rounded-xl p-4 border"
             >
               <p className="mb-2 text-black">
                 <strong>Order ID:</strong> {order._id}
@@ -158,7 +158,9 @@ const TrackPage = () => {
                     className="mt-2 flex justify-between text-gray-700"
                   >
                     <strong>{item.productName}</strong>
-                    <strong>{item.quantity} kg</strong>
+                    <strong>
+                      {item.quantity} {item.unit}
+                    </strong>
                     {activeItems.length > 1 &&
                       item.status !== "CANCELLED" &&
                       item.status !== "DELIVERED" && (

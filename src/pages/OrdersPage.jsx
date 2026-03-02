@@ -102,11 +102,11 @@ const Orders = () => {
               className="bg-white rounded-xl shadow-md p-6 border "
             >
               <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold text-gray-800">
+                <h2 className="text-sm font-semibold text-gray-800">
                   Order ID: {order._id}
                 </h2>
 
-                <span className="text-sm md:text-lg bg-green-200 text-green-700 font-bold px-4 py-2 rounded-full">
+                <span className="text-xs md:text-lg bg-green-200 text-green-700 font-bold px-4 py-2 rounded-full">
                   {order.status || "Pending"}
                 </span>
               </div>
@@ -118,10 +118,11 @@ const Orders = () => {
                       <strong>Grain:</strong> {item?.productName}
                     </p>
                     <p>
-                      <strong>Quantity:</strong> {item?.quantity} kg
+                      <strong>Quantity:</strong> {item?.quantity} {item?.unit}
                     </p>
                     <p>
-                      <strong>Price per Kg:</strong> ₹ {item?.pricePerUnit}
+                      <strong>Price per {item.unit}:</strong> ₹{" "}
+                      {item?.pricePerUnit}
                     </p>
                     {/* 🔹 Status Badge */}
                     {item.status === "CANCELLED" && (

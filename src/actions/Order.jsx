@@ -43,7 +43,7 @@ const Order = () => {
             {
               productId: grainId,
               quantity: quantity,
-              unit: "Kg",
+              unit: grain.unit,
             },
           ],
         },
@@ -82,7 +82,7 @@ const Order = () => {
         {/* Grain Info */}
         <div className="flex flex-col md:flex-row gap-2 items-center">
           <img
-            src={grain?.photos?.[0]}
+            src={grain?.photo?.[0]}
             alt={grain.name}
             className="w-48 h-52 object-cover rounded-xl border"
           />
@@ -100,15 +100,15 @@ const Order = () => {
                 {grain.description}
               </p>
 
-              <p className="text-xl font-bold mt-4 text-green-600">
-                ₹ {grain.price} / kg
+              <p className="text-xl font-bold mt-4 text-green-700">
+                ₹ {grain.price} / {grain.unit}
               </p>
             </div>
 
             {/* Quantity Selector */}
             <div className="mt-6">
               <label className="font-semibold text-gray-700">
-                Quantity (kg):
+                Quantity ({grain.unit}):
               </label>
               {/* <input
                 type="number"

@@ -78,6 +78,7 @@ const Feed = () => {
       {/* <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
         {isLoggedIn && <LeftSideAction />}
       </aside> */}
+
       {/* Cnter - Grain Cards */}
       <section className="flex-grow px-3 py-4 pb-24 ">
         <div className="max-w-md mx-auto space-y-4">
@@ -86,13 +87,14 @@ const Feed = () => {
           ))}
         </div>
       </section>
+
       {/* Right side Action */}
       <aside className="w-20 lg:w-56 flex flex-col items-center pt-6 gap-6">
         {/* {!isLoggedIn && (
           <RightSideAction message="To Explore grains" buttonText="Login" />
         )}
         {isLoggedIn && <RightSellCard />} */}
-        {!isLoggedIn && (
+        {/* {!isLoggedIn && (
           <div className="fixed block right-4 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
             <div
               className="
@@ -108,7 +110,7 @@ const Feed = () => {
               <RightSideAction message="To Explore grains" buttonText="Login" />
             </div>
           </div>
-        )}
+        )} */}
       </aside>
     </div>
   );

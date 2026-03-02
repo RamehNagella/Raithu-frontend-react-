@@ -13,8 +13,8 @@ import OrdersPage from "./pages/OrdersPage";
 import Trackpage from "./pages/Trackpage";
 import SingleGrainCard from "./pages/SingleGrainCard";
 import OrganicPage from "./pages/OrganicPage";
-import NonOrganicPage from "./pages/NonOrganicPage";
 import AddGrains from "./components/AddGrains";
+import UpdateGrain from "./components/UpdateGrain";
 import MyGrainsPage from "./pages/MyGrainsPage";
 import RicePage from "./pages/RicePage";
 import ViewDetails from "./actions/ViewDetails";
@@ -44,6 +44,7 @@ function App() {
               <Route path="logout" element={<NavBar />} />
               {/* RIGHT SIDE ACTION ROUTES */}
               <Route path="add-grain" element={<AddGrains />} />
+              <Route path="update-grain/:grainId" element={<UpdateGrain />} />
               {/* Button Action Routes */}
               <Route path="/grain/:grainId" element={<ViewDetails />} />
               <Route path="/grain/order/:grainId" element={<Order />} />
@@ -53,7 +54,6 @@ function App() {
               <Route path="track" element={<Trackpage />} />
               <Route path="my-grains" element={<MyGrainsPage />} />
               <Route path="organic" element={<OrganicPage />} />
-              <Route path="non-organic" element={<NonOrganicPage />} />
               <Route path="rice" element={<RicePage />} />
               <Route path="millets" element={<MilletsPage />} />
               <Route path="feedback" element={<FeedbackPage />} />

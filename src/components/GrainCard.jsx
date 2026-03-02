@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
         createdAt: '2026-02-16T19:20:30.276Z'
       },
    */
-const GrainCard = ({ grain }) => {
+const GrainCard = ({ grain, isGetMode = false }) => {
   return (
     <div
       className="card
@@ -68,6 +68,10 @@ const GrainCard = ({ grain }) => {
             {grain.isOrganic ? "Organic" : "Non-Organic"}
           </div>
         </div>
+        <div className="text-orange-500 text-lg font-semibold">
+          {" "}
+          Price: ₹ {Number(grain.price.$numberDecimal)}/{grain.unit}{" "}
+        </div>
         <p>{grain.description || "This is a high- quality healthy grain"}</p>
         <div className="card-actions justify-end">
           {/* <Link
@@ -86,12 +90,23 @@ const GrainCard = ({ grain }) => {
           {/* <button className="badge badge-outline bg-blue-500 w-24 h-10 text-white">
             View Details
           </button> */}
-          <Link
-            to={`/grain/order/${grain._id}`}
-            className="badge badge-outline bg-green-500 w-24 h-10"
-          >
-            Order Now
-          </Link>
+          <>
+            {isGetMode ? (
+              <Link
+                to={`/update-grain/${grain._id}`}
+                className="badge badge-outline bg-green-500 w-24 h-10"
+              >
+                Update
+              </Link>
+            ) : (
+              <Link
+                to={`/grain/order/${grain._id}`}
+                className="badge badge-outline bg-green-500 w-24 h-10"
+              >
+                Order Now
+              </Link>
+            )}
+          </>
         </div>
         <div className="badge badge-primary">
           Harvested In{" "}
