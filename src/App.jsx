@@ -11,7 +11,6 @@ import NavBar from "./components/NavBar";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import Trackpage from "./pages/Trackpage";
-import SingleGrainCard from "./pages/SingleGrainCard";
 import OrganicPage from "./pages/OrganicPage";
 import AddGrains from "./components/AddGrains";
 import UpdateGrain from "./components/UpdateGrain";
@@ -57,7 +56,6 @@ function App() {
               <Route path="rice" element={<RicePage />} />
               <Route path="millets" element={<MilletsPage />} />
               <Route path="feedback" element={<FeedbackPage />} />
-              <Route path="single-grain/:id" element={<SingleGrainCard />} />
             </Route>
           </Routes>
         </BrowserRouter>

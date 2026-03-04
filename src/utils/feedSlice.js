@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 import { BASE_URL } from "./constants";
 
 // create Async Thunk
@@ -44,9 +43,19 @@ const feedSlice = createSlice({
     removeFeed: (state, action) => {
       state.items = [];
     },
+    updateFeedQuantity: (state, action) => {
+      const { grainId, quantity } = action.payload;
+      const grain = state.items.find(
+        (g) => g._id.toString() === grainId.toString(),
+      );
+      if (grain) {
+        grain.availableQuantity -= quantity;
+      }
+    },
   },
 });
 
-export const { addFeed, setLoading, setError, removeFeed } = feedSlice.actions;
+export const { addFeed, setLoading, setError, removeFeed, updateFeedQuantity } =
+  feedSlice.actions;
 
 export default feedSlice.reducer;

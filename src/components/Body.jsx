@@ -24,6 +24,7 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const [expand, setExpand] = useState(false);
   console.log(location.pathname);
 
@@ -31,6 +32,8 @@ const Body = () => {
   const isLoggedIn = !!user?.user?.emailId;
   const isLoginPath = location?.pathname === "/login";
   // console.log(isLoginPath);
+  const [error, setError] = useState("");
+
   const hideSelllCardRoutes = [
     "/cart",
     "/orders",
@@ -47,6 +50,7 @@ const Body = () => {
 
   const fetchUser = async () => {
     try {
+      setError("");
       // if (userData?.user !== null && userData?.user !== undefined) return; // If user data already exists in the store, skip fetching
       //make page loggedIn even after refresh
       const res = await axios.get(BASE_URL + "/profile/view", {
@@ -55,7 +59,9 @@ const Body = () => {
 
       dispatch(addUser(res.data?.user));
     } catch (err) {
+      // console.log(">>", err?.response?.data);
       const status = err?.response?.status;
+      setError(err?.response?.data || "Failed to see profile");
 
       // if (status === 401) {
       //   navigate("/login");

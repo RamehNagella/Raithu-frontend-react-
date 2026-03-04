@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { addFeed, setError } from "../utils/feedSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import Graincard from "./GrainCard";
 import Footer from "./Footer";
 import bgImage from "../assets/screan_bg1.jpg";
@@ -11,41 +10,44 @@ import { Link } from "react-router-dom";
 import RightSideAction from "./RightSideAction";
 // import LeftSideAction from "./LeftSideAction";
 import RightSellCard from "./RightSellCard";
+import useGrains from "../hooks/useGrains";
 
 const Feed = () => {
-  // user
-  const user = useSelector((store) => store.user);
-  const isLoggedIn = !!user?.user?.emailId;
+  const { grains, isLoading, error } = useGrains();
+  /*
+  // // user
+  // const user = useSelector((store) => store.user);
+  // const isLoggedIn = !!user?.user?.emailId;
 
-  const grains = useSelector((store) => store.feed);
-  const dispatch = useDispatch();
+  // const grains = useSelector((store) => store.feed);
+  // const dispatch = useDispatch();
 
-  const getGrains = async () => {
-    //prevent refetching if data is already present
-    if (grains?.items?.length > 0) return;
-    try {
-      const res = await axios.get(BASE_URL + "/grain/grains", {
-        withCredentials: true,
-      });
-      dispatch(addFeed(res.data?.data));
-    } catch (err) {
-      // console.log(err);
-      dispatch(
-        setError(
-          err.response?.data?.message ||
-            "Somthing went wrong while fetching grains, Try after some time",
-        ),
-      );
-    }
-  };
+  // const getGrains = async () => {
+  //   //prevent refetching if data is already present
+  //   if (grains?.items?.length > 0) return;
+  //   try {
+  //     const res = await axios.get(BASE_URL + "/grain/grains", {
+  //       withCredentials: true,
+  //     });
+  //     dispatch(addFeed(res.data?.data));
+  //   } catch (err) {
+  //     // console.log(err);
+  //     dispatch(
+  //       setError(
+  //         err.response?.data?.message ||
+  //           "Somthing went wrong while fetching grains, Try after some time",
+  //       ),
+  //     );
+  //   }
+  // };
 
-  useEffect(() => {
-    getGrains();
-  }, []);
+  // useEffect(() => {
+  //   getGrains();
+  // }, []);
 
   // Loading State
-  if (grains?.isLoading) {
-    return <div className="text-center mt-10">Loading...</div>;
+  if (isLoading) {
+    return <div className="text-center mt-10">Loading Grains....⏳</div>;
   }
   // Error state
   if (grains?.error) {
@@ -57,8 +59,10 @@ const Feed = () => {
   if (grains?.items?.length === 0) {
     return <div className="text-center mt-10">No grains available</div>;
   }
+  */
   //Success state
   return (
+    /*
     // <div className="min-h-screen bg-gray-100 px-3 py-4">
     //   <div className="max-w-md mx-auto space-y-4">
     //     <Graincard />
@@ -72,8 +76,28 @@ const Feed = () => {
     //     ))}
     //   </div>
     // </div>
+    */
 
     <div>
+      {/* Loading */}
+      {isLoading && (
+        <div className="text-center text-lg text-blue-700 font-semibold">
+          Loading Grains....⏳
+        </div>
+      )}
+      {/* Error */}
+      {error && (
+        <div className="text-center text-red-600 font-semibold bg-red-100 py-2 rounded-lg">
+          😕 {error}
+        </div>
+      )}
+      {/* No Orders */}
+      {!isLoading && grains?.items?.length === 0 && !error && (
+        <div className="text-center text-gray-600">
+          "No grains available 😕 "{" "}
+        </div>
+      )}
+
       {/* Left actions go here */}
       {/* <aside className="w-20 lg:w-56 hidden lg:flex flex-col items-center pt-6 gap-6">
         {isLoggedIn && <LeftSideAction />}

@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFeedQuantity } from "../utils/feedSlice";
+import LoginCard from "../components/AuthorizeCard";
 
 const Order = () => {
+  console.log("from view Details page ");
   const { grainId } = useParams();
+  console.log("by ViewDetails", grainId);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const user = useSelector((store) => store.user);
+  // console.log(user?.user?.emailId);
+  const isLoggedIn = !!user?.user?.emailId;
+  // console.log(isLoggedIn);
   const [grain, setGrain] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +29,6 @@ const Order = () => {
         const res = await axios.get(`http://localhost:7777/grain/${grainId}`, {
           withCredentials: true,
         });
-        console.log(res);
         setGrain(res?.data?.data);
       } catch (err) {
         setError("Failed to load grain details");
@@ -31,10 +40,16 @@ const Order = () => {
 
   // ✅ Handle order placement
   const handlePlaceOrder = async () => {
+    if (quantity > grain.availableQuantity) {
+      setError("Not enough stock available");
+      return;
+    }
+
     try {
       setIsLoading(true);
       setError("");
       setSuccess("");
+      //update UI(values of fields) immediately after placing the order
 
       await axios.post(
         "http://localhost:7777/orders/place-order",
@@ -51,8 +66,8 @@ const Order = () => {
       );
 
       setSuccess("Order placed successfully!");
-
-      // Optional redirect after 2 seconds
+      dispatch(updateFeedQuantity({ grainId, quantity }));
+      // // redirect after 2 seconds
       setTimeout(() => {
         navigate("/orders");
       }, 2000);
@@ -62,10 +77,34 @@ const Order = () => {
       setIsLoading(false);
     }
   };
+  // if (!isLoggedIn) {
+  //   return (
+  //     <div className="flex items-center justify-center px-4">
+  //       <div className="bg-green-200/70 shadow-xl rounded-2xl p-6 text-center w-full max-w-sm">
+  //         <h2 className="text-lg text-gray-900 font-semibold mb-4">
+  //           🔐 Please Login to Order Now with 🔑
+  //         </h2>
+  //         <button
+  //           className="btn btn-secondary w-full"
+  //           onClick={() => navigate("/login")}
+  //         >
+  //           <p className="text-green-900 font-semibold text-xl ">Login</p>
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <LoginCard errorMessage=" 🔐 Please Login to Order Now with 🔑" />
+      </div>
+    );
+  }
 
   if (!grain) {
     return (
-      <div className="text-center mt-10 text-lg font-semibold">
+      <div className="text-center mt-10 text-gray-700 text-lg font-semibold">
         Loading grain details...
       </div>
     );

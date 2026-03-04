@@ -6,7 +6,6 @@ import GrainForm from "./GrainForm";
 
 const UpdateGrain = () => {
   const { grainId } = useParams();
-  console.log(">>", grainId);
   const navigate = useNavigate();
 
   const [grainData, setGrainData] = useState(null);
@@ -17,17 +16,17 @@ const UpdateGrain = () => {
       const res = await axios.get(`${BASE_URL}/grain/${grainId}`, {
         withCredentials: true,
       });
-      console.log("update: ", res.data.data);
+      console.log("update: ", res?.data?.data);
       setGrainData(res?.data?.data);
     } catch (err) {
       setError("Failed to fetch grain Data");
     }
   };
-  console.log("ggg", grainData);
 
   useEffect(() => {
     fetchGrain();
   }, [grainId]);
+
   const handleUpdateGrain = async (formData) => {
     try {
       setLoading(true);

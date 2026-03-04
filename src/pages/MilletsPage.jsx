@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { useSelector } from "react-redux";
+import GrainTypeForm from "../components/GrainTypeForm";
+import useGrains from "../hooks/useGrains";
+
 const MilletsPage = () => {
-  const user = useSelector((store) => store.user);
-  const isLoggedIn = !!user?.user?.emailId;
-
+  const { grains, isLoading, error } = useGrains();
+  // console.log(grains, isLoading, error);
   return (
     <div>
-      <div className="text-black"> MilletsPage</div>
+      <GrainTypeForm
+        grains={grains}
+        // grainType="millet"
+        filterFn={(grain) => grain.grainType === "millet"}
+        isLoading={isLoading}
+        error={error}
+        emptyMessage="😔 Sorry we don't have Millet Grains🌾"
+      />
     </div>
   );
 };

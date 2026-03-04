@@ -77,12 +77,21 @@ to push into github reposito
 - Change OrdersPage and CartPage to fit the screan
 - Update amount to be pay in orders and cart page when order or item was cancel
 - Add Pagination to Track Page
-UPto this app is perfect Feb27,20.05PM
+UPto this app is perfect Feb27,20:05PM
 <!--  -->
 - Add your Grains page
 - Add update page
 - Chenge display card to display correct unit name and price/unit
 - Adjust useEffect() to work both for AddGrain page and UpdateGrainPage
+<!--  -->
+- Devide Grains to organic, rice, and millets type grains
+- Add pages to each grain Type
+- make code reusable for different pages instead of writing same code for 3 different pages (/hooks/useGrains.js and components/grainTypeForm.jsx) and import to required page
+- Add page For "View Details" action button the shows all the info about grain
+- in the View details page add "AddToCard" and "orderNow" actions
+- # MAKE PAGES TO AUTO UPDATE THEIR VALUES LIKE(QUANTITY) NOT AFTER REFRESHING BY ADDING UPDATEqUQANTITY IN FEEDsLICE.JS AND IMPORTING IN REQUIRED ACTION TAKING PLACE PAGES
+- make user to allow order only the grains which are not created by him(in backend)
+- Add borders to the grain cards
 
 <!--  -->
 

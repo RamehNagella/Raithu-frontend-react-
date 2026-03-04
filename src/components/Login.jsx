@@ -7,9 +7,15 @@ import { BASE_URL } from "../utils/constants";
 import RightViewGrainCard from "./RightViewGrainCard";
 
 const Login = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   const [emailId, setEmailId] = useState("sureshsusri@gmail.com");
   const [password, setPassword] = useState("Suresh@7");
+
   const [error, setError] = useState("");
+
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,6 +48,24 @@ const Login = () => {
       );
     }
   };
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          emailId,
+          password,
+        },
+        { withCredentials: true },
+      );
+      dispatch(addUser(res?.data?.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err.response?.data?.message);
+    }
+  };
 
   return (
     <div className="min-h-[calc(100vh-6rem)] flex justify-center items-start bg-base-200 px-4 pt-16">
@@ -49,8 +73,35 @@ const Login = () => {
         <div className="card bg-base-300 shadow-xl">
           <div className="card-body space-y-4">
             <h2 className="card-title justify-center text-2xl font-bold">
-              Login
+              {isLoginForm ? "Login" : "Sign Up"}
             </h2>
+            {isLoginForm && (
+              <>
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text">First Name</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={firstName}
+                    className="input input-bordered w-full"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text">Last Name</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={lastName}
+                    className="input input-bordered w-full"
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+              </>
+            )}
 
             <label className="form-control w-full">
               <div className="label">
@@ -78,11 +129,20 @@ const Login = () => {
             <p className="text-red-500">{error}</p>
             <button
               className="btn btn-primary btn-sm px-6 mt-5 mx-auto block"
-              onClick={handleLogin}
+              onClick={isLoginForm ? handleLogin : handleSignUp}
             >
-              Login
+              {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
+
+          <p
+            className="text-gray-700"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm
+              ? "New User? Sign Up Here"
+              : "Existing User? Login Here"}
+          </p>
         </div>
       </div>
       {!isLoggedIn && (

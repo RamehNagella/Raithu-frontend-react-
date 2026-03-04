@@ -47,7 +47,7 @@ const MyGrains = () => {
 
       {/* Loading */}
       {isLoading && (
-        <div className="text-center text-lg font-semibold">
+        <div className="text-center text-lg text-gray-700 font-semibold">
           Loading orders...
         </div>
       )}
@@ -68,7 +68,7 @@ const MyGrains = () => {
       <section className="flex-grow px-3 py-4 pb-24">
         <div className="max-w-md mx-auto space-y-4">
           {grains?.map((grain) => (
-            <GrainCard key={grain._id} grain={grain} isGetMode={true} />
+            <GrainCard key={grain._id} grain={grain} isGetMyGrains={true} />
           ))}
         </div>
       </section>

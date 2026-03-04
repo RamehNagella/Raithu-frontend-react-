@@ -42,9 +42,20 @@ const grainSlice = createSlice({
     removeGrain: (state, action) => {
       state.item = [];
     },
+    updateGrainQuanity: (state, action) => {
+      const { grainId, quantity } = action.payload;
+      console.log(grain.availableQuantity);
+
+      const grain = state.item.find((g) => g._id === grainId);
+
+      if (grain) {
+        grain.availableQuantity -= quantity;
+      }
+    },
   },
 });
 
-export const { setLoading, setError, removeGrain } = grainSlice.actions;
+export const { setLoading, setError, removeGrain, updateGrainQuanity } =
+  grainSlice.actions;
 
 export default grainSlice.reducer;

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import GrainForm from "./GrainForm";
+import LoginCard from "./AuthorizeCard";
 
 const AddGrains = () => {
   const navigate = useNavigate();
@@ -15,18 +16,8 @@ const AddGrains = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="flex items-center justify-center px-4">
-        <div className="bg-green-200/70 shadow-xl rounded-2xl p-6 text-center w-full max-w-sm">
-          <h2 className="text-lg text-gray-900 font-semibold mb-4">
-            Please provide your details by logging to sell grain
-          </h2>
-          <button
-            className="btn btn-secondary w-full"
-            onClick={() => navigate("/login")}
-          >
-            <p className="text-green-900 font-semibold text-xl ">Login</p>
-          </button>
-        </div>
+      <div>
+        <LoginCard errorMessage="🔐 Please Login to Sell your Grain" />
       </div>
     );
   }
