@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFeedQuantity } from "../utils/feedSlice";
+import LoginCard from "../components/AuthorizeCard";
 
 const Order = () => {
+  console.log("from view Details page ");
   const { grainId } = useParams();
+  console.log("by ViewDetails", grainId);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const user = useSelector((store) => store.user);
+  // console.log(user?.user?.emailId);
+  const isLoggedIn = !!user?.user?.emailId;
+  // console.log(isLoggedIn);
   const [grain, setGrain] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +29,6 @@ const Order = () => {
         const res = await axios.get(`http://localhost:7777/grain/${grainId}`, {
           withCredentials: true,
         });
-        console.log("fetchGrain", res?.data?.data);
         setGrain(res?.data?.data);
       } catch (err) {
         setError("Failed to load grain details");
@@ -29,39 +38,73 @@ const Order = () => {
     fetchGrain();
   }, [grainId]);
 
-  console.log("grain::", grain);
   // ✅ Handle order placement
   const handlePlaceOrder = async () => {
+    if (quantity > grain.availableQuantity) {
+      setError("Not enough stock available");
+      return;
+    }
+
     try {
       setIsLoading(true);
       setError("");
       setSuccess("");
+      //update UI(values of fields) immediately after placing the order
 
       await axios.post(
         "http://localhost:7777/orders/place-order",
         {
-          grainId,
-          quantity,
+          items: [
+            {
+              productId: grainId,
+              quantity: quantity,
+              unit: grain.unit,
+            },
+          ],
         },
         { withCredentials: true },
       );
 
       setSuccess("Order placed successfully!");
-
-      // Optional redirect after 2 seconds
+      dispatch(updateFeedQuantity({ grainId, quantity }));
+      // // redirect after 2 seconds
       setTimeout(() => {
         navigate("/orders");
       }, 2000);
     } catch (err) {
-      setError(err?.response?.data?.Error || "Failed to place order");
+      setError(err?.response?.data?.message || "Failed to place order");
     } finally {
       setIsLoading(false);
     }
   };
+  // if (!isLoggedIn) {
+  //   return (
+  //     <div className="flex items-center justify-center px-4">
+  //       <div className="bg-green-200/70 shadow-xl rounded-2xl p-6 text-center w-full max-w-sm">
+  //         <h2 className="text-lg text-gray-900 font-semibold mb-4">
+  //           🔐 Please Login to Order Now with 🔑
+  //         </h2>
+  //         <button
+  //           className="btn btn-secondary w-full"
+  //           onClick={() => navigate("/login")}
+  //         >
+  //           <p className="text-green-900 font-semibold text-xl ">Login</p>
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <LoginCard errorMessage=" 🔐 Please Login to Order Now with 🔑" />
+      </div>
+    );
+  }
 
   if (!grain) {
     return (
-      <div className="text-center mt-10 text-lg font-semibold">
+      <div className="text-center mt-10 text-gray-700 text-lg font-semibold">
         Loading grain details...
       </div>
     );
@@ -70,17 +113,17 @@ const Order = () => {
   const totalPrice = grain.price * quantity;
 
   return (
-    <div className="h-dvh pt-12 pb-12 bg-gray-300 flex items-center justify-center overflow-hidden">
-      <div className="w-full max-w-3xl h-[90%] bg-white shadow-xl rounded-2xl p-6 overflow-auto">
+    <div className="flex justify-center items-end pb-[5%]  min-h-screen">
+      <div className="w-full max-w-2xl h-dvh bg-gray-300 shadow-xl rounded-2xl p-4 overflow-auto">
         <h1 className="text-2xl font-bold mb-8 text-center text-gray-800">
           Order Summary
         </h1>
         {/* Grain Info */}
-        <div className="flex flex-col md:flex-row gap-8 items-center">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           <img
-            src={grain?.photos[0]}
+            src={grain?.photo?.[0]}
             alt={grain.name}
-            className="w-64 h-64 object-cover rounded-xl border"
+            className="w-48 h-52 object-cover rounded-xl border"
           />
 
           <div className="flex flex-col justify-between flex-1">
@@ -96,15 +139,15 @@ const Order = () => {
                 {grain.description}
               </p>
 
-              <p className="text-xl font-bold mt-4 text-green-600">
-                ₹ {grain.price} / kg
+              <p className="text-xl font-bold mt-4 text-green-700">
+                ₹ {grain.price} / {grain.unit}
               </p>
             </div>
 
             {/* Quantity Selector */}
             <div className="mt-6">
               <label className="font-semibold text-gray-700">
-                Quantity (kg):
+                Quantity ({grain.unit}):
               </label>
               {/* <input
                 type="number"
@@ -115,7 +158,7 @@ const Order = () => {
               /> */}
             </div>
             <div className="flex items-center">
-              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden shadow-sm bg-white">
+              <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden shadow-sm bg-gray-300">
                 {/* Decrease Button */}
                 <button
                   onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
@@ -149,6 +192,10 @@ const Order = () => {
             {/* Total Price */}
             <div className="mt-6 text-xl font-bold text-gray-800">
               Total: <span className="text-green-600">₹ {totalPrice}</span>
+            </div>
+            <div className="text-lg font-bold text-red-600 ">
+              {" "}
+              Cash On Delivery Only
             </div>
           </div>
         </div>

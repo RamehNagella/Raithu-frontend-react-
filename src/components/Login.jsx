@@ -1,21 +1,33 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+// import { addUser } from "../utils/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
-import exploreGrainsImage from "../assets/grain_default_image2.jpg";
+import RightViewGrainCard from "./RightViewGrainCard";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("sureshsusri@gmail.com");
-  const [password, setPassword] = useState("Suresh@7");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
+
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((store) => store.user);
-  const isLoggedIn = !!user?.emailId;
+  const user = useSelector((store) => {
+    // console.log(store);
+    return store.user;
+  });
+  // console.log(">>", user.user);
+  const isLoggedIn = !!user.user?.emailId;
+  // console.log("11", user, isLoggedIn);
 
   const handleLogin = async () => {
     // console.log(emailId, password);
@@ -31,25 +43,73 @@ const Login = () => {
           withCredentials: true,
         },
       );
-      // console.log(res.data.user);
+      // console.log("ll", res.data?.user);
       dispatch(addUser(res.data?.user));
       return navigate("/grain");
     } catch (err) {
-      console.error(err?.response?.data?.Error);
+      console.error(err);
       setError(
         err?.response?.data?.Error || "Something went wrong. Please try again.",
       );
     }
   };
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          emailId,
+          password,
+        },
+        { withCredentials: true },
+      );
+      // console.log(res.data);
+
+      dispatch(addUser(res?.data?.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err.response?.data?.message);
+    }
+  };
 
   return (
-    <div className="min-h-[calc(100vh-6rem)] flex justify-center items-start bg-base-200 px-4 pt-16">
+    <div className="h-[calc(100vh-6rem)] flex justify-center items-center px-6 overflow-hidden">
+      {/* <div className="h-dvh flex justify-center items-center px-6 -pt-2 overflow-hidden"> */}
       <div className="w-full max-w-md">
-        <div className="card bg-base-300 shadow-xl">
+        <div className="card bg-base-200 shadow-xl">
           <div className="card-body space-y-4">
             <h2 className="card-title justify-center text-2xl font-bold">
-              Login
+              {isLoginForm ? "Login" : "Sign Up"}
             </h2>
+            {!isLoginForm && (
+              <>
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text">First Name</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={firstName}
+                    className="input input-bordered w-full"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-control w-full">
+                  <div className="label">
+                    <span className="label-text">Last Name</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={lastName}
+                    className="input input-bordered w-full"
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+              </>
+            )}
 
             <label className="form-control w-full">
               <div className="label">
@@ -77,30 +137,45 @@ const Login = () => {
             <p className="text-red-500">{error}</p>
             <button
               className="btn btn-primary btn-sm px-6 mt-5 mx-auto block"
-              onClick={handleLogin}
+              onClick={isLoginForm ? handleLogin : handleSignUp}
             >
-              Login
+              {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
+          {/* 
+          <p
+            className="text-gray-300"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm
+              ? "New User? Sign Up Here"
+              : "Existing User? Login Here"}
+          </p> */}
+          <p
+            className="text-gray-300 p-4 font-semibold"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm ? (
+              <>
+                New User?{" "}
+                <span className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-500 transition-colors">
+                  Sign Up Here
+                </span>
+              </>
+            ) : (
+              <>
+                Existing User?{" "}
+                <span className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-500 transition-colors">
+                  Login Here
+                </span>
+              </>
+            )}
+          </p>
         </div>
       </div>
       {!isLoggedIn && (
-        <div className="fixed top-96 right-8 z-50">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-4 shadow-xl text-center">
-              <img
-                src={exploreGrainsImage}
-                alt="Explore Grains"
-                className="rounded-lg mb-4 h-20 object-cover mx-auto "
-              />
-              <Link
-                to="/grain"
-                className="block bg-green-600 text-white text-sm px-3 py-2 rounded-full"
-              >
-                View Grains
-              </Link>
-            </div>
-          </div>
+        <div className="fixed bottom-20 right-4 z-50">
+          <RightViewGrainCard />
         </div>
       )}
     </div>

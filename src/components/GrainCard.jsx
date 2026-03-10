@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import dafaultImage from "../assets/grain_default_image.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 /*
    {
         _id: '69936dfef7dbd5a1af1d725b',
         name: 'Brown Rice Organic',
-        grainType: 'rice',
+        grainType: 'rice',nding grain data like this when we want graindata for single grain
         variety: 'Brown Basmati',
         photo: [
           {
@@ -24,27 +26,61 @@ import { Link } from "react-router-dom";
         createdAt: '2026-02-16T19:20:30.276Z'
       },
    */
-const GrainCard = ({ grain }) => {
+const GrainCard = ({
+  grain,
+  isGetMyGrains = false,
+  isDetailsMode = false,
+  className = "",
+}) => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+
+  const handleAddToCart = async ({ productId }) => {
+    // console.log(productId);
+    try {
+      await axios.post(
+        BASE_URL + "/cart/add",
+        { productId },
+        { withCredentials: true },
+      );
+      navigate("/cart");
+    } catch (err) {
+      setError(err.response?.data?.message);
+    }
+  };
+  // console.log("...card", grain);
   return (
     <div
-      className="card
-  w-[92%] 
-  max-w-xs 
-  sm:max-w-sm 
-  md:max-w-md 
-  lg:max-w-lg 
-  xl:max-w-xl
-  mx-auto
-  bg-black/90
-  shadow-md
-  border border-gray-500
-  rounded-2xl
-  transition-all duration-300 hover:shadow-xl"
+      className={`card mx-auto transition-all duration-300 hover:shadow-xl
+        ${
+          isDetailsMode
+            ? "w-[98%] max-w-3xl bg-green-300 bg-opacity-50 p-1 border-b-8 border-l-4 border-violet-700 text-black shadow-2xl"
+            : "w-[92%] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl bg-black/80 shadow-md p-2 border-b-4 border-l-4 border-yellow-400 rounded-2xl"
+
+          // "w-[92%] max-w-sm md:max-w-md lg:max-w-lg shadow-md bg-black/90 border border-red-900"
+
+          // w-[92%]
+          // max-w-xs
+          // sm:max-w-sm
+          // md:max-w-md
+          // lg:max-w-lg
+          // xl:max-w-xl
+          // bg-black/90
+          // shadow-md
+          // border border-gray-500
+          // rounded-2xl"
+        }
+  `}
     >
       {" "}
       <figure>
         <img
-          src={grain.photo?.[0]?.url || dafaultImage}
+          src={
+            grain.photo?.[0]?.url ||
+            grain.photo?.[0] ||
+            grain.photo ||
+            dafaultImage
+          }
           alt={grain.name || "Grains"}
           onError={(e) => {
             e.target.src = dafaultImage;
@@ -68,7 +104,44 @@ const GrainCard = ({ grain }) => {
             {grain.isOrganic ? "Organic" : "Non-Organic"}
           </div>
         </div>
+        <div className="flex items-center justify-between">
+          <div className="text-orange-500 text-lg font-semibold">
+            {" "}
+            {!isDetailsMode ? (
+              <>
+                Price: ₹ {Number(grain.price?.$numberDecimal || grain.price)}/
+                {grain.unit}{" "}
+              </>
+            ) : (
+              <>
+                <span>
+                  Price: ₹ {Number(grain.price || grain.price?.$numberDecimal)}/
+                  {grain.unit}{" "}
+                </span>
+                <span className="text-secondary text-sm mx-6">
+                  {" "}
+                  Variety: {grain.variety}{" "}
+                </span>
+              </>
+            )}
+          </div>
+        </div>
         <p>{grain.description || "This is a high- quality healthy grain"}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-orange-400 font-semibold">
+            {" "}
+            In Stock: {grain.availableQuantity} {grain.unit}s
+          </p>{" "}
+          {isDetailsMode && (
+            <span>
+              {" "}
+              Seller Name:
+              <span className="font-semibold text-sm text-red-600">
+                {grain.seller.name}
+              </span>{" "}
+            </span>
+          )}{" "}
+        </div>
         <div className="card-actions justify-end">
           {/* <Link
             to={`/grain/${grain._id}`}
@@ -76,24 +149,55 @@ const GrainCard = ({ grain }) => {
           >
             View Details
           </Link> */}
-          <Link
-            to={`/grain/${grain._id}`}
-            className="badge badge-outline bg-blue-500 w-26 h-10 text-white"
-          >
-            View Details
-          </Link>
+          {!isDetailsMode ? (
+            <>
+              <Link
+                to={`/grain/${grain._id}`}
+                className="badge badge-outline bg-blue-500 w-26 h-10 text-white font-semibold"
+              >
+                View Details
+              </Link>
+            </>
+          ) : (
+            <button
+              className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+              onClick={() => handleAddToCart({ productId: grain._id })}
+            >
+              Add to Cart
+            </button>
+            // <>
+            //   <Link
+            //     to={`/cart`}
+            //     className="badge badge-outline bg-blue-500 w-26 h-10 text-white font-semibold"
+            //     onClick={ handleAddToCart(grain._id)}
+            //   >
+            //     Add To Cart🛒
+            //   </Link>
+            // </>
+          )}
 
           {/* <button className="badge badge-outline bg-blue-500 w-24 h-10 text-white">
             View Details
           </button> */}
-          <Link
-            to={`/grain/order/${grain._id}`}
-            className="badge badge-outline bg-green-500 w-24 h-10"
-          >
-            Order Now
-          </Link>
+          <>
+            {isGetMyGrains ? (
+              <Link
+                to={`/update-grain/${grain._id}`}
+                className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+              >
+                Update
+              </Link>
+            ) : (
+              <Link
+                to={`/grain/order/${grain._id}`}
+                className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+              >
+                Order Now
+              </Link>
+            )}
+          </>
         </div>
-        <div className="badge badge-primary">
+        <div className="badge badge-primary font-semibold">
           Harvested In{" "}
           {new Date(grain.harvestDate).toLocaleDateString("en-US", {
             month: "long",

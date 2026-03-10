@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "autoprefixer";
 import { BASE_URL } from "./constants";
+import axios from "axios";
 
 // create Async Thunk
 
@@ -25,8 +25,9 @@ const feedSlice = createSlice({
   name: "feed",
   initialState: {
     items: [],
-    isLoding: false,
+    isLoading: false,
     error: null,
+    lastFetched: null, // on refresh redux store will refresh
   },
   reducers: {
     setLoading: (state, action) => {
@@ -34,8 +35,12 @@ const feedSlice = createSlice({
     },
     addFeed: (state, action) => {
       state.items = action.payload;
+      state.lastFetched = Date.now(); // to fetch newly added grain from store
       state.isLoading = false;
       state.error = null;
+    },
+    addGrain: (state, action) => {
+      state.items.unshift(action.payload); //adds the newest grains which we added to the top of the redux store items
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -44,9 +49,25 @@ const feedSlice = createSlice({
     removeFeed: (state, action) => {
       state.items = [];
     },
+    updateFeedQuantity: (state, action) => {
+      const { grainId, quantity } = action.payload;
+      const grain = state.items.find(
+        (g) => g._id.toString() === grainId.toString(),
+      );
+      if (grain) {
+        grain.availableQuantity -= quantity;
+      }
+    },
   },
 });
 
-export const { addFeed, setLoading, setError, removeFeed } = feedSlice.actions;
+export const {
+  addFeed,
+  addGrain,
+  setLoading,
+  setError,
+  removeFeed,
+  updateFeedQuantity,
+} = feedSlice.actions;
 
 export default feedSlice.reducer;

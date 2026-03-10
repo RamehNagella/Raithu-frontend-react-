@@ -62,13 +62,74 @@ to push into github reposito
 - Add pages for all icons and button actions
 - Work on OrderNow action button (take two backend apis for this action one router.get("/grain/:grainId" and router.post("/order/place-order")))
 - Display OrderSummary on the page
+<!--  -->
+- Work complete Order api (/place-order, .get('/orders/),/my-orders,/track, /cancel/order, /cancel/item, )
+- Orders Doesn't stored on Redux store
+- complete ui work based on each api on their respective pages
+- Set NavBar and Footer, SideBar and MainContent at their positions
+<!--  -->
+- Add FeedBack page, Millets pages
+- Add Globar settings for page view for navbar footer in index.css
+- Left side Border added for RightSellCard
+- In the entire Body of the page we should have only one <main> tag if we want we can have multiple sections <section> to devied the body (added in Feed.jsx)
+- CircleAction can take multiple parameters and allow inline classing by taking the className as parameter for its CircleAction icons
+- Modify Icons size
+- Change OrdersPage and CartPage to fit the screan
+- Update amount to be pay in orders and cart page when order or item was cancel
+- Add Pagination to Track Page
+UPto this app is perfect Feb27,20:05PM
+<!--  -->
+- Add your Grains page
+- Add update page
+- Chenge display card to display correct unit name and price/unit
+- Adjust useEffect() to work both for AddGrain page and UpdateGrainPage
+<!--  -->
+- Devide Grains to organic, rice, and millets type grains
+- Add pages to each grain Type
+- make code reusable for different pages instead of writing same code for 3 different pages (/hooks/useGrains.js and components/grainTypeForm.jsx) and import to required page
+- Add page For "View Details" action button the shows all the info about grain
+- in the View details page add "AddToCard" and "orderNow" actions
+- # MAKE PAGES TO AUTO UPDATE THEIR VALUES LIKE(QUANTITY) NOT AFTER REFRESHING BY ADDING UPDATEqUQANTITY IN FEEDsLICE.JS AND IMPORTING IN REQUIRED ACTION TAKING PLACE PAGES
+- make user to allow order only the grains which are not created by him(in backend)
+- Add borders to the grain cards
 
-Body
-NavBar
-Route=/ => Feed (grains)
-Route=/login => Login
-Route=/singup => Signup
-Route=/profile => Profile
+<!-- ******************************************************************** -->
+
+# ADD import { Provider } from "react-redux"; in main.jsx otherwise redux stor will not work properly
+
+  <StrictMode>
+    <Provider store={appStore}>
+      <App />
+    </Provider>
+  </StrictMode>,
+<!--      **********************************************************************************  -->
+- Add redux-persist to stay the page loggedin or its current state after refreshing the page
+- Add add-to-cart page and action button 
+- show login form and signup form in correct format
+- Work on View Details page to show all the information about grain
+- Add profile page and Edit Profile page
+- Make redux store to update to newly added grains or store (add code in feedSlice.js)
+- Make store to auto update or refresh the sotre after some time or after user loggedIn such that it should have all the grains in the DB at UI (add in the useGrains.js hook)
+- Fix code to show UI properly wherever required.
+- add feedback circle action 
+
+
+- TEST END-TO-END
+<!--  -->
+
+//
+//
+
+//
+
+//
+
+- Body
+  NavBar
+  Route=/ => Feed (grains)
+  Route=/login => Login
+  Route=/singup => Signup
+  Route=/profile => Profile
 
 # to provie any action (component)or any card on webpage
 
