@@ -93,7 +93,36 @@ UPto this app is perfect Feb27,20:05PM
 - make user to allow order only the grains which are not created by him(in backend)
 - Add borders to the grain cards
 
+<!-- ******************************************************************** -->
+
+# ADD import { Provider } from "react-redux"; in main.jsx otherwise redux stor will not work properly
+
+  <StrictMode>
+    <Provider store={appStore}>
+      <App />
+    </Provider>
+  </StrictMode>,
+<!--      **********************************************************************************  -->
+- Add redux-persist to stay the page loggedin or its current state after refreshing the page
+- Add add-to-cart page and action button 
+- show login form and signup form in correct format
+- Work on View Details page to show all the information about grain
+- Add profile page and Edit Profile page
+- Make redux store to update to newly added grains or store (add code in feedSlice.js)
+- Make store to auto update or refresh the sotre after some time or after user loggedIn such that it should have all the grains in the DB at UI (add in the useGrains.js hook)
+- Fix code to show UI properly wherever required.
+- add feedback circle action 
+
+
+- TEST END-TO-END
 <!--  -->
+
+//
+//
+
+//
+
+//
 
 - Body
   NavBar

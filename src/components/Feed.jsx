@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { BASE_URL } from "../utils/constants";
-import { addFeed, setError } from "../utils/feedSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import { BASE_URL } from "../utils/constants";
+// import { addFeed, setError } from "../utils/feedSlice";
+// import { useDispatch, useSelector } from "react-redux";
 import Graincard from "./GrainCard";
-import Footer from "./Footer";
-import bgImage from "../assets/screan_bg1.jpg";
-import rightActionImage from "../assets/icon.jpg";
-import { Link } from "react-router-dom";
-import RightSideAction from "./RightSideAction";
+// import Footer from "./Footer";
+// import bgImage from "../assets/screan_bg1.jpg";
+// import rightActionImage from "../assets/icon.jpg";
+// import RightSideAction from "./RightSideAction";
 // import LeftSideAction from "./LeftSideAction";
-import RightSellCard from "./RightSellCard";
+// import RightSellCard from "./RightSellCard";
 import useGrains from "../hooks/useGrains";
 
 const Feed = () => {

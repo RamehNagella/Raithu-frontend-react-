@@ -90,9 +90,6 @@ const NavBar = () => {
                     <Link to="/profile/password">New Password</Link>
                   </li>
                   <li>
-                    <Link to="/grain">Grains</Link>
-                  </li>
-                  <li>
                     <button
                       onClick={handleLogout}
                       className="text-red-600 font-semibold"

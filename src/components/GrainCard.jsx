@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import dafaultImage from "../assets/grain_default_image.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 /*
    {
         _id: '69936dfef7dbd5a1af1d725b',
@@ -30,6 +32,22 @@ const GrainCard = ({
   isDetailsMode = false,
   className = "",
 }) => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+
+  const handleAddToCart = async ({ productId }) => {
+    // console.log(productId);
+    try {
+      await axios.post(
+        BASE_URL + "/cart/add",
+        { productId },
+        { withCredentials: true },
+      );
+      navigate("/cart");
+    } catch (err) {
+      setError(err.response?.data?.message);
+    }
+  };
   // console.log("...card", grain);
   return (
     <div
@@ -57,7 +75,12 @@ const GrainCard = ({
       {" "}
       <figure>
         <img
-          src={grain.photo?.[0]?.url || dafaultImage}
+          src={
+            grain.photo?.[0]?.url ||
+            grain.photo?.[0] ||
+            grain.photo ||
+            dafaultImage
+          }
           alt={grain.name || "Grains"}
           onError={(e) => {
             e.target.src = dafaultImage;
@@ -86,12 +109,14 @@ const GrainCard = ({
             {" "}
             {!isDetailsMode ? (
               <>
-                Price: ₹ {Number(grain.price.$numberDecimal)}/{grain.unit}{" "}
+                Price: ₹ {Number(grain.price?.$numberDecimal || grain.price)}/
+                {grain.unit}{" "}
               </>
             ) : (
               <>
                 <span>
-                  Price: ₹ {Number(grain.price)}/{grain.unit}{" "}
+                  Price: ₹ {Number(grain.price || grain.price?.$numberDecimal)}/
+                  {grain.unit}{" "}
                 </span>
                 <span className="text-secondary text-sm mx-6">
                   {" "}
@@ -134,14 +159,21 @@ const GrainCard = ({
               </Link>
             </>
           ) : (
-            <>
-              <Link
-                to={`/cart`}
-                className="badge badge-outline bg-blue-500 w-26 h-10 text-white font-semibold"
-              >
-                Add To Cart
-              </Link>
-            </>
+            <button
+              className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+              onClick={() => handleAddToCart({ productId: grain._id })}
+            >
+              Add to Cart
+            </button>
+            // <>
+            //   <Link
+            //     to={`/cart`}
+            //     className="badge badge-outline bg-blue-500 w-26 h-10 text-white font-semibold"
+            //     onClick={ handleAddToCart(grain._id)}
+            //   >
+            //     Add To Cart🛒
+            //   </Link>
+            // </>
           )}
 
           {/* <button className="badge badge-outline bg-blue-500 w-24 h-10 text-white">

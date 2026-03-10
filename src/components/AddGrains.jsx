@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import GrainForm from "./GrainForm";
 import LoginCard from "./AuthorizeCard";
+import { addGrain } from "../utils/feedSlice";
 
 const AddGrains = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const isLoggedIn = !!user?.user?._id;
+  // console.log(">.>//", user.user);
+  const isLoggedIn = !!user?.user?.emailId;
+  // console.log("11``1", isLoggedIn);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,7 +21,7 @@ const AddGrains = () => {
   if (!isLoggedIn) {
     return (
       <div>
-        <LoginCard errorMessage="🔐 Please Login to Sell your Grain" />
+        <LoginCard errorMessage="🔓 Please Login to Sell your Grain" />
       </div>
     );
   }
@@ -49,7 +53,7 @@ const AddGrains = () => {
     try {
       setLoading(true);
 
-      await axios.post(
+      const res = await axios.post(
         `${BASE_URL}/grain/add`,
         {
           ...formData,
@@ -62,7 +66,8 @@ const AddGrains = () => {
         },
         { withCredentials: true },
       );
-
+      // console.log("true");
+      dispatch(addGrain(res.data?.data)); //update redux store
       navigate("/grain");
     } catch (err) {
       setError(err.response?.data || "Please Try after some time.");

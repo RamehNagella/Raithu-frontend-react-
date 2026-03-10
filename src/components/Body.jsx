@@ -15,10 +15,10 @@ import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
 import CircleAction from "./CircleAction";
 import RightSellCard from "./RightSellCard";
 import RightSideAction from "./RightSideAction";
+import { addUser } from "../utils/userSlice";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -56,25 +56,23 @@ const Body = () => {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
-
-      dispatch(addUser(res.data?.user));
+      dispatch(addUser(res?.data?.user));
     } catch (err) {
       // console.log(">>", err?.response?.data);
       const status = err?.response?.status;
       setError(err?.response?.data || "Failed to see profile");
 
-      // if (status === 401) {
-      //   navigate("/login");
-      // } else {
-      //   console.error("Unexpected error:", err);
-      // }
-      if (status !== 401) {
-        console.error("Unexpected error:", err);
+      if (status && status !== 401) {
+        setError(
+          err?.response?.data?.message || err.message || "Something went wrong",
+        );
       }
     }
   };
   useEffect(() => {
-    fetchUser();
+    if (!user?.user?.emailId) {
+      fetchUser();
+    }
   }, []);
 
   return (

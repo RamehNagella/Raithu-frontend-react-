@@ -11,12 +11,13 @@ const UpdateGrain = () => {
   const [grainData, setGrainData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const fetchGrain = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/grain/${grainId}`, {
         withCredentials: true,
       });
-      console.log("update: ", res?.data?.data);
+      // console.log("update: ", res?.data?.data);
       setGrainData(res?.data?.data);
     } catch (err) {
       setError("Failed to fetch grain Data");

@@ -1,17 +1,18 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+// import { addUser } from "../utils/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import RightViewGrainCard from "./RightViewGrainCard";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const [emailId, setEmailId] = useState("sureshsusri@gmail.com");
-  const [password, setPassword] = useState("Suresh@7");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
 
@@ -20,9 +21,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((store) => store.user);
-  const isLoggedIn = !!user?.user?.emailId;
-  console.log(user, isLoggedIn);
+  const user = useSelector((store) => {
+    // console.log(store);
+    return store.user;
+  });
+  // console.log(">>", user.user);
+  const isLoggedIn = !!user.user?.emailId;
+  // console.log("11", user, isLoggedIn);
 
   const handleLogin = async () => {
     // console.log(emailId, password);
@@ -38,11 +43,11 @@ const Login = () => {
           withCredentials: true,
         },
       );
-      // console.log(res.data.user);
+      // console.log("ll", res.data?.user);
       dispatch(addUser(res.data?.user));
       return navigate("/grain");
     } catch (err) {
-      console.error(err?.response?.data?.Error);
+      console.error(err);
       setError(
         err?.response?.data?.Error || "Something went wrong. Please try again.",
       );
@@ -60,6 +65,8 @@ const Login = () => {
         },
         { withCredentials: true },
       );
+      // console.log(res.data);
+
       dispatch(addUser(res?.data?.data));
       return navigate("/profile");
     } catch (err) {
@@ -68,14 +75,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-6rem)] flex justify-center items-start bg-base-200 px-4 pt-16">
+    <div className="h-[calc(100vh-6rem)] flex justify-center items-center px-6 overflow-hidden">
+      {/* <div className="h-dvh flex justify-center items-center px-6 -pt-2 overflow-hidden"> */}
       <div className="w-full max-w-md">
-        <div className="card bg-base-300 shadow-xl">
+        <div className="card bg-base-200 shadow-xl">
           <div className="card-body space-y-4">
             <h2 className="card-title justify-center text-2xl font-bold">
               {isLoginForm ? "Login" : "Sign Up"}
             </h2>
-            {isLoginForm && (
+            {!isLoginForm && (
               <>
                 <label className="form-control w-full">
                   <div className="label">
@@ -134,14 +142,34 @@ const Login = () => {
               {isLoginForm ? "Login" : "Sign Up"}
             </button>
           </div>
-
+          {/* 
           <p
-            className="text-gray-700"
+            className="text-gray-300"
             onClick={() => setIsLoginForm((value) => !value)}
           >
             {isLoginForm
               ? "New User? Sign Up Here"
               : "Existing User? Login Here"}
+          </p> */}
+          <p
+            className="text-gray-300 p-4 font-semibold"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm ? (
+              <>
+                New User?{" "}
+                <span className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-500 transition-colors">
+                  Sign Up Here
+                </span>
+              </>
+            ) : (
+              <>
+                Existing User?{" "}
+                <span className="bg-blue-600 text-white px-2 py-1 rounded cursor-pointer hover:bg-blue-500 transition-colors">
+                  Login Here
+                </span>
+              </>
+            )}
           </p>
         </div>
       </div>

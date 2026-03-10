@@ -45,6 +45,7 @@ const GrainForm = ({
 
   useEffect(() => {
     if (initialData && !isInitialized) {
+      // console.log("Photo", initialData.photo);
       setFormData({
         name: initialData.name || "",
         grainType: initialData.grainType || "",
@@ -53,7 +54,7 @@ const GrainForm = ({
         price: initialData.price || "",
         unit: initialData.unit || "",
         availableQuantity: initialData.availableQuantity || "",
-        photo: initialData?.photo?.[0]?.url || "",
+        photo: initialData?.photo?.[0] || initialData?.photo?.[0]?.url || "",
         isOrganic: initialData.isOrganic || false,
         qualityGrade: initialData.qualityGrade || "2",
         isActive: initialData.isActive ?? true,
