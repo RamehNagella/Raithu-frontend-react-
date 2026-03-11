@@ -111,14 +111,22 @@ UPto this app is perfect Feb27,20:05PM
 - Make redux store to update to newly added grains or store (add code in feedSlice.js)
 - Make store to auto update or refresh the sotre after some time or after user loggedIn such that it should have all the grains in the DB at UI (add in the useGrains.js hook)
 - Fix code to show UI properly wherever required.
-- add feedback circle action 
-
+- add feedback circle action
 
 - TEST END-TO-END
 <!--  -->
 
-//
-//
+# DEPLOYEMENT
+
+- Signup on AWS
+- Launch instance
+- chmod 400 <secret>.pem
+- ssh -i "Raithu-secret.pem" ubuntu@ec2-13-48-42-231.eu-north-1.compute.amazonaws.com
+  with this command i connected to ubuntu machine
+- install node version manager in the server machine
+- nvm version is same as the project code developed version (20.19.6)
+  //
+  //
 
 //
 

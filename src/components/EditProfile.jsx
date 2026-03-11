@@ -9,7 +9,7 @@ const EditProfile = () => {
   const reduxUser = useSelector((store) => store.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(reduxUser);
+  // console.log(reduxUser);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -31,7 +31,7 @@ const EditProfile = () => {
   const [error, setError] = useState("");
 
   const saveProfile = async () => {
-    console.log("in profile page");
+    // console.log("in profile page");
     try {
       const res = await axios.patch(`${BASE_URL}/profile/edit`, formData, {
         withCredentials: true,
@@ -262,9 +262,9 @@ const EditProfile = () => {
   // take the values from forms and set to the state
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  console.log("user", user);
+  // console.log("user", user);
 
-  console.log("EditProfile", user.user);
+  // console.log("EditProfile", user.user);
 
   const [firstName, setFirstName] = useState(user?.user?.firstName || "");
   const [lastName, setLastName] = useState(user?.user?.lastName || "");
@@ -317,10 +317,10 @@ const EditProfile = () => {
         },
         { withCredentials: true },
       );
-      console.log(res.data.message);
-      console.log("res:", res);
+      // console.log(res.data.message);
+      // console.log("res:", res);
 
-      console.log("Response Data:", res.data.data);
+      // console.log("Response Data:", res.data.data);
       dispatch(addUser(res?.data?.data));
 
       setShowToast(true);

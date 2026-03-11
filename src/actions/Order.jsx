@@ -6,9 +6,9 @@ import { updateFeedQuantity } from "../utils/feedSlice";
 import LoginCard from "../components/AuthorizeCard";
 
 const Order = () => {
-  console.log("from view Details page ");
+  // console.log("from view Details page ");
   const { grainId } = useParams();
-  console.log("by ViewDetails", grainId);
+  // console.log("by ViewDetails", grainId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

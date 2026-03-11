@@ -26,7 +26,7 @@ const Body = () => {
   const location = useLocation();
 
   const [expand, setExpand] = useState(false);
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   const user = useSelector((store) => store.user);
   const isLoggedIn = !!user?.user?.emailId;

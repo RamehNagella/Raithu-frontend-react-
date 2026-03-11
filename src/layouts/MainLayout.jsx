@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const MainLayout = () => {
   const user = useSelector((store) => store.user);
   const isLoggedIn = !!user?.user?.emailId;
-  console.log("User in MainLayout:", user);
+  // console.log("User in MainLayout:", user);
 
   return (
     <div className="relative min-h-screen">

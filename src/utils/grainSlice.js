@@ -44,7 +44,7 @@ const grainSlice = createSlice({
     },
     updateGrainQuanity: (state, action) => {
       const { grainId, quantity } = action.payload;
-      console.log(grain.availableQuantity);
+      // console.log(grain.availableQuantity);
 
       const grain = state.item.find((g) => g._id === grainId);
 

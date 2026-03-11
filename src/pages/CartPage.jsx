@@ -11,13 +11,13 @@ const CartPage = () => {
       const res = await axios.get(BASE_URL + "/cart", {
         withCredentials: true,
       });
-      console.log(res.data?.data?.items);
+      // console.log(res.data?.data?.items);
       setCartItems(res.data?.data?.items || []);
     } catch (err) {
       setError(err.response?.data?.message);
     }
   };
-  console.log("cartItems", cartItems);
+  // console.log("cartItems", cartItems);
   useEffect(() => {
     fetchCart();
   }, []);
