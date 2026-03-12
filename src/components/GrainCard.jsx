@@ -158,7 +158,7 @@ const GrainCard = ({
             <>
               <Link
                 to={`/grain/${grain._id}`}
-                className="badge badge-outline bg-blue-500 w-26 h-10 text-white text-sm font-semibold"
+                className="badge badge-outline bg-blue-500 w-16 h-10 text-white text-sm font-semibold"
               >
                 Details
               </Link>
@@ -195,14 +195,14 @@ const GrainCard = ({
             ) : (
               <Link
                 to={`/grain/order/${grain._id}`}
-                className="badge badge-outline bg-green-500 w-22 h-10 font-semibold"
+                className="badge badge-sm badge-outline bg-green-500 w-18 h-10 font-semibold"
               >
                 Order Now
               </Link>
             )}
           </>
         </div>
-        <div className="badge badge-sm badge-primary">
+        <div className="badge badge-xs badge-primary">
           Harvested In{" "}
           <span className="font-semibold">
             {new Date(grain.harvestDate).toLocaleDateString("en-US", {
