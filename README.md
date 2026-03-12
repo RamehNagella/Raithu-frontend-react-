@@ -125,8 +125,64 @@ UPto this app is perfect Feb27,20:05PM
   with this command i connected to ubuntu machine
 - install node version manager in the server machine
 - nvm version is same as the project code developed version (20.19.6)
-  //
-  //
+- Git clone (backend and frontend code)
+- <FRONTEND>
+  - npm install (installs the dependencies)
+  - npm run build
+  - sudo apt update
+  - sudo apt install nginx
+  - sudo systemctl start nginx
+  - sudo systemctl enable nginx
+  - Copy code from dist(build files) to /var/www/html (check path is exist or not cd /var/www/html)
+  - sudo scp -r dist/* /var/www/html/
+  - cd /var/www/html
+  - ENABLE PORT :80 of you instance
+  - take public ipv4 13.48.42.231 AND search  in chrome your app will run
+
+-<BACKEND>
+
+- npm install
+- update DB password
+- allow ec2 instance public ip on mongodb server
+- npm install pm2 -g
+- pm2 start npm -- start (- pm2 start npm --name "Raithu-backend" -- start --> with customised name)
+- pm2 logs (check the logs)
+- pm2 flush <nameof process>
+- pm2 flush npm (clear or flush the logs)
+- pm2 list
+- pm2 stop <name>
+- pm2 delete <name>
+- pm2 start npm --name "Raithu-backend" -- start
+- ngnix config path - /etc/nginx/sites-available/defualt
+  to edit sudo nano /etc/nginx/sites-available/defualt
+  - Then restart nginx -> sudo systemctl restart nginx
+  - Modify the BASE_URL in frontend project(src/utils/constants.js) to "/api
+
+  FRONTEND = http://13.60.104.206
+  BACKEND = http://13.60.104.206:7777/grain/grains
+
+  Domain Name = Raithu.com
+
+  Frontend = raithu.com
+  Backend = raithu.com:7777 => raithu.com/api
+
+sudo nano
+nginx configuarion:
+
+    server_name 13.60.104.206;
+
+
+    location /api/ {
+                proxy_pass http://localhost:7777/;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+     }
+
+//
+//
 
 //
 
