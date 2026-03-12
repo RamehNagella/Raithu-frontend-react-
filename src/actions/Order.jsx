@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFeedQuantity } from "../utils/feedSlice";
 import LoginCard from "../components/AuthorizeCard";
+import { BASE_URL } from "../utils/constants";
 
 const Order = () => {
   // console.log("from view Details page ");
@@ -26,7 +27,7 @@ const Order = () => {
   useEffect(() => {
     const fetchGrain = async () => {
       try {
-        const res = await axios.get(`http://localhost:7777/grain/${grainId}`, {
+        const res = await axios.get(`${BASE_URL}/grain/${grainId}`, {
           withCredentials: true,
         });
         setGrain(res?.data?.data);
@@ -52,7 +53,7 @@ const Order = () => {
       //update UI(values of fields) immediately after placing the order
 
       await axios.post(
-        "http://localhost:7777/orders/place-order",
+        `${BASE_URL}/orders/place-order`,
         {
           items: [
             {

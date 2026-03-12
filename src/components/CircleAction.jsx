@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const CircleAction = ({ icon, label, to, bgColor, size = "w-14 h-14" }) => {
+const CircleAction = ({ icon, label, to, bgColor, size = "w-12 h-12" }) => {
   // <Link to={to} className="flex flex-col items-center gap-2">
   //   <div className="w-14 h-14 bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition">
   //     {icon}

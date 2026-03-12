@@ -72,7 +72,12 @@ const GrainCard = ({
         }
   `}
     >
-      {" "}
+      {/* Error */}
+      {error && (
+        <div className="text-center text-red-600 font-semibold bg-red-100 py-2 rounded-lg">
+          {error}
+        </div>
+      )}{" "}
       <figure>
         <img
           src={
@@ -94,18 +99,18 @@ const GrainCard = ({
             {grain.isOrganic ? "Organic" : "Non-Organic"}
           </div>
         </h2> */}
-        <div className="flex items-center justify-between gap-2">
-          <h2 className="card-title text-lg font-bold text-violet-500 truncate flex-1">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="card-title text-sm font-bold text-violet-500 truncate flex-1">
             {grain.name}
           </h2>
           <div
-            className={`badge ${grain.isOrganic ? "badge-success" : "badge-warning"} text-white font-semibold whitespace-nowrap shrink-0`}
+            className={`badge badge-sm ${grain.isOrganic ? "badge-success" : "badge-warning"} text-white whitespace-nowrap shrink-0`}
           >
             {grain.isOrganic ? "Organic" : "Non-Organic"}
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <div className="text-orange-500 text-lg font-semibold">
+          <div className="text-orange-500 text-sm font-semibold">
             {" "}
             {!isDetailsMode ? (
               <>
@@ -118,7 +123,7 @@ const GrainCard = ({
                   Price: ₹ {Number(grain.price || grain.price?.$numberDecimal)}/
                   {grain.unit}{" "}
                 </span>
-                <span className="text-secondary text-sm mx-6">
+                <span className="text-secondary text-sm mx-2">
                   {" "}
                   Variety: {grain.variety}{" "}
                 </span>
@@ -128,21 +133,21 @@ const GrainCard = ({
         </div>
         <p>{grain.description || "This is a high- quality healthy grain"}</p>
         <div className="flex items-center justify-between">
-          <p className="text-orange-400 font-semibold">
+          <p className="text-red-500 font-semibold">
             {" "}
             In Stock: {grain.availableQuantity} {grain.unit}s
           </p>{" "}
           {isDetailsMode && (
             <span>
               {" "}
-              Seller Name:
+              SellerName:
               <span className="font-semibold text-sm text-red-600">
                 {grain.seller.name}
-              </span>{" "}
+              </span>
             </span>
           )}{" "}
         </div>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end pr-2">
           {/* <Link
             to={`/grain/${grain._id}`}
             className="badge badge-outline bg-blue-500 w-24 h-10 text-white"
@@ -153,14 +158,14 @@ const GrainCard = ({
             <>
               <Link
                 to={`/grain/${grain._id}`}
-                className="badge badge-outline bg-blue-500 w-26 h-10 text-white font-semibold"
+                className="badge badge-outline bg-blue-500 w-26 h-10 text-white text-sm font-semibold"
               >
-                View Details
+                Details
               </Link>
             </>
           ) : (
             <button
-              className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+              className="badge badge-outline text-sm bg-green-500 w-24 h-10 font-semibold"
               onClick={() => handleAddToCart({ productId: grain._id })}
             >
               Add to Cart
@@ -190,19 +195,21 @@ const GrainCard = ({
             ) : (
               <Link
                 to={`/grain/order/${grain._id}`}
-                className="badge badge-outline bg-green-500 w-24 h-10 font-semibold"
+                className="badge badge-outline bg-green-500 w-22 h-10 font-semibold"
               >
                 Order Now
               </Link>
             )}
           </>
         </div>
-        <div className="badge badge-primary font-semibold">
+        <div className="badge badge-sm badge-primary">
           Harvested In{" "}
-          {new Date(grain.harvestDate).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          }) || "Unknown"}
+          <span className="font-semibold">
+            {new Date(grain.harvestDate).toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
+            }) || "Unknown"}
+          </span>
         </div>
       </div>
     </div>

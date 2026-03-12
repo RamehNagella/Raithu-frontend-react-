@@ -75,7 +75,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-6rem)] flex justify-center items-center px-6 overflow-hidden">
+    <div className="fixed flex justify-center items-center px-6 overflow-hidden">
       {/* <div className="h-dvh flex justify-center items-center px-6 -pt-2 overflow-hidden"> */}
       <div className="w-full max-w-md">
         <div className="card bg-base-200 shadow-xl">

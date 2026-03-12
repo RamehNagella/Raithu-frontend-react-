@@ -26,7 +26,11 @@ const CartPage = () => {
     <div className="text-black p-6">
       <h1 className="text-2xl font-bold mb-6">My Cart 🛒</h1>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && (
+        <div className="text-center mt-10 text-gray-700 text-lg font-semibold">
+          {error}
+        </div>
+      )}
 
       {cartItems?.length === 0 ? (
         <p>Your cart is empty</p>

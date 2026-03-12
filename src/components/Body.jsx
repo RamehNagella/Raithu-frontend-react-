@@ -82,27 +82,27 @@ const Body = () => {
       <NavBar />
 
       {/* <div className="fixed left-4 top-20 bottom-20 z-50 w-20 flex flex-col gap-4 items-center bg-gray-100/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg "> */}
-      <div className="fixed left-0 top-28 bottom-20 z-50 w-18 lg:w-24 flex flex-col gap-3 items-center bg-gray-100/10 backdrop-blur-sm rounded-3xl py-6 px-2 shadow-xl border-l-2 border-orange-400">
+      <div className="fixed left-2 top-24 bottom-20 z-50 w-14 lg:w-20 flex flex-col gap-1 items-center bg-gray-100/10 backdrop-blur-sm rounded-3xl py-6 px-2 shadow-xl border-l-2 border-orange-400">
         <CircleAction
-          icon={<Wheat size={20} />}
+          icon={<Wheat size={14} />}
           label="Grains"
           to="/grain"
           bgColor="bg-violet-500"
         />
         <CircleAction
-          icon={<Leaf size={20} />}
+          icon={<Leaf size={14} />}
           label="Organic"
           to="/organic"
           bgColor="bg-green-600"
         />
         <CircleAction
-          icon={<CookingPot size={20} />}
+          icon={<CookingPot size={14} />}
           label="Rice"
           to="/rice"
           bgColor="bg-green-500"
         />
         <CircleAction
-          icon={<Sprout size={20} />}
+          icon={<Sprout size={14} />}
           label="Millets"
           to="/millets"
           bgColor="bg-orange-700"
@@ -112,25 +112,25 @@ const Body = () => {
         {isLoggedIn && (
           <>
             <CircleAction
-              icon={<Wheat size={20} />}
-              label="Your Grains"
+              icon={<Wheat size={10} />}
+              label="YourGrains"
               to="/my-grains"
               bgColor="bg-blue-900"
             />
             <CircleAction
-              icon={<ShoppingCart size={20} />}
+              icon={<ShoppingCart size={14} />}
               label="My Cart"
               to="/cart"
               bgColor="bg-blue-900"
             />
             <CircleAction
-              icon={<Package size={20} />}
+              icon={<Package size={14} />}
               label="Orders"
               to="/orders"
               bgColor="bg-blue-900"
             />
             <CircleAction
-              icon={<Truck size={20} />}
+              icon={<Truck size={14} />}
               label="Track"
               to="/track"
               bgColor="bg-blue-900"
@@ -153,7 +153,7 @@ const Body = () => {
         <Outlet />
       </main>
       {!shouldHideSellCard && (
-        <div className="fixed -right-2 md:right-6 top-1/3 -translate-y-1/2 z-[50]">
+        <div className="fixed -right-4 md:right-6 top-1/4 -translate-y-1/2 z-[50]">
           <div
             className="
                 transform transition-all duration-500 ease-in-out
@@ -172,7 +172,7 @@ const Body = () => {
       <>
         <div>
           {!isLoginPath && !isLoggedIn && (
-            <div className="fixed block right-4 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
+            <div className="fixed block right-2 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
               <div
                 className="
               transform transition-all duration-700 ease-in-out
