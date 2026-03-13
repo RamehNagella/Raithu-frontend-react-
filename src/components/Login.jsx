@@ -75,7 +75,7 @@ const Login = () => {
   };
 
   return (
-    <div className="fixed flex justify-center items-center px-6 overflow-hidden">
+    <div className="flex justify-center items-center px-2 p-6 overflow-hidden">
       {/* <div className="h-dvh flex justify-center items-center px-6 -pt-2 overflow-hidden"> */}
       <div className="w-full max-w-md">
         <div className="card bg-base-200 shadow-xl">
@@ -174,7 +174,7 @@ const Login = () => {
         </div>
       </div>
       {!isLoggedIn && (
-        <div className="fixed bottom-20 right-4 z-50">
+        <div className="fixed bottom-20 right-2 z-50">
           <RightViewGrainCard />
         </div>
       )}

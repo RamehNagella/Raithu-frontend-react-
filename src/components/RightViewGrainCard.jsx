@@ -13,7 +13,7 @@ const RightViewGrainCard = () => {
         />
         <Link
           to="/grain"
-          className="block bg-green-600 text-white text-sm px-3 py-2 rounded-full"
+          className="block bg-green-600 text-white text-sm px-0 py-2 rounded-full"
         >
           View Grains
         </Link>
