@@ -153,7 +153,7 @@ const Body = () => {
         <Outlet />
       </main>
       {!shouldHideSellCard && (
-        <div className="fixed -right-4 md:right-6 top-1/4 -translate-y-1/2 z-[50]">
+        <div className="fixed -right-2 md:right-6 top-1/3 -translate-y-1/2 z-[50]">
           <div
             className="
                 transform transition-all duration-500 ease-in-out
@@ -172,7 +172,8 @@ const Body = () => {
       <>
         <div>
           {!isLoginPath && !isLoggedIn && (
-            <div className="fixed block right-2 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
+            // <div className="block right-2 md:right-6 top-1/4 -translate-y-1/2 z-[999999]">
+            <div className="fixed right-0 top-1/3 -translate-y-1/2 z-[999999]">
               <div
                 className="
               transform transition-all duration-700 ease-in-out

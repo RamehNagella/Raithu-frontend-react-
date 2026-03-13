@@ -4,8 +4,8 @@ import exploreGrainsImage from "../assets/grain_default_image2.jpg";
 
 const RightViewGrainCard = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-4">
-      <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-4 shadow-xl text-center">
+    <div className="flex flex-col lg:flex-row gap-2">
+      <div className="bg-white/25 backdrop-blur-sm rounded-2xl p-1 shadow-xl text-center">
         <img
           src={exploreGrainsImage}
           alt="Explore Grains"

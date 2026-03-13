@@ -147,7 +147,7 @@ const GrainCard = ({
             </span>
           )}{" "}
         </div>
-        <div className="card-actions justify-end pr-2">
+        <div className="card-actions justify-start pl-2">
           {/* <Link
             to={`/grain/${grain._id}`}
             className="badge badge-outline bg-blue-500 w-24 h-10 text-white"
@@ -158,14 +158,14 @@ const GrainCard = ({
             <>
               <Link
                 to={`/grain/${grain._id}`}
-                className="badge badge-outline bg-blue-500 w-16 h-10 text-white text-sm font-semibold"
+                className="badge badge-outline text-sm  bg-blue-500 w-16 h-8 text-white font-semibold"
               >
                 Details
               </Link>
             </>
           ) : (
             <button
-              className="badge badge-outline text-sm bg-green-500 w-24 h-10 font-semibold"
+              className="badge badge-outline text-sm bg-green-500 w-24 h-8 font-semibold"
               onClick={() => handleAddToCart({ productId: grain._id })}
             >
               Add to Cart
@@ -195,14 +195,14 @@ const GrainCard = ({
             ) : (
               <Link
                 to={`/grain/order/${grain._id}`}
-                className="badge badge-sm badge-outline bg-green-500 w-18 h-10 font-semibold"
+                className="badge badge-sm badge-outline bg-green-500 w-18 h-8 font-semibold"
               >
                 Order Now
               </Link>
             )}
           </>
         </div>
-        <div className="badge badge-xs badge-primary">
+        <div className="badge badge-xs w-40 h-5 badge-primary">
           Harvested In{" "}
           <span className="font-semibold">
             {new Date(grain.harvestDate).toLocaleDateString("en-US", {
